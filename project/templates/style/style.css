@@ -1,10 +1,11 @@
 @font-face {
     font-family: myFont;
-    src: url(BebasNeue-Regular.woff);
+    src: url(LemonMilk.otf);
 }
+
 nav {
-    font-family: Verdana;
-    font-size: 1.2em;
+    font-family: myFont;
+    font-size: 1.8em;
     background: black;
 }
 
@@ -15,4 +16,8 @@ nav {
 #id-navbar .soft-active a{
     color: black;
     background: rgb(255, 255, 255);
+}
+
+.jumbotron-fluid {
+    background: blue;
 }
