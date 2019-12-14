@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/degreeOverview/v15/.suo
+/.vs/degreeOverview/v15
+/.vs
