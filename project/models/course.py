@@ -20,5 +20,5 @@ class Course:
         with dbapi2.connect(url) as connection:
             cursor = connection.cursor()
             statement = """DELETE FROM COURSE WHERE (CourseID = %d);"""
-            cursor.execute(statement, (id,))
+            cursor.execute(statement, (courseID,))
             cursor.close()
