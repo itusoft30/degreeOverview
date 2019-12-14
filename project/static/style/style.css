@@ -1,0 +1,23 @@
+@font-face {
+    font-family: myFont;
+    src: url(LemonMilk.otf);
+}
+
+nav {
+    font-family: myFont;
+    font-size: 1.8em;
+    background: black;
+}
+
+#id-navbar  a{
+    color: white;
+}
+
+#id-navbar .soft-active a{
+    color: black;
+    background: rgb(255, 255, 255);
+}
+
+.jumbotron-fluid {
+    background: blue;
+}
