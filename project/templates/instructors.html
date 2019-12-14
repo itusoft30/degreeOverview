@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DegreeOverview</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav id ="id-navbar" class="navbar navbar-expand-sm  navbar-dark fixed-top ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <ul class="navbar-nav font-weight-bold">
+        <li class="nav-item">
+          <a class="nav-link" href="#">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="courses.html">COURSES</a>
+        </li>
+        <li class="nav-item soft-active">
+          <a class="nav-link" href="instructors.html">INSTRUCTORS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">PROFILE</a>
+        </li>    
+      </ul>
+    </div>  
+  </nav>
+
+  <div id="main" class="container mb-4">
+    <div class="row">
+
+      <div class="col-sm-4">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Course">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="submit">Bring</button>  
+            </div>
+        </div>
+
+        <form>
+          <select name="soft-department" class="custom-select mb-2">
+            <option selected>Department</option>
+            <option value="volvo">Volvo</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+          </select>
+          <select name="soft-term" class="custom-select">
+            <option selected>Term</option>
+            <option value="volvo">Volvo</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+          </select>
+          <button type="submit" class="btn btn-outline-primary mt-2 float-right">Bring</button>
+        </form>
+
+      </div>
+
+      <div class="col-sm-8">
+      <div class="container">
+        <h5>4 course found</h5>
+        <hr>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action">
+            <div class="row">
+              <div class="col">BLG 411E</div> 
+              <div class="col">none</div>
+              <div class="col">Developing Software</div>
+            </div>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">
+            <div class="row">
+              <div class="col">BLG 411E</div> 
+              <div class="col">none</div>
+              <div class="col">Developing Software</div>
+            </div>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">
+            <div class="row">
+              <div class="col">BLG 411E</div> 
+              <div class="col">none</div>
+              <div class="col">Developing Software</div>
+            </div>
+          </a>
+          
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cs-footer">
+    <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>
+  </div>
+
+</body>
+</html>
