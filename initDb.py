@@ -21,11 +21,11 @@ INIT_STATEMENTS = [
                     IsAdmin INTEGER DEFAULT 0
                     );
     CREATE TABLE INSTRUCTOR ( 
-                    InstructorID INTEGER REFERENCES REGUSER (UserID), 
+                    InstructorID INTEGER REFERENCES REGUSER (UserID) UNIQUE, 
                     Title VARCHAR(50)
                     );
     CREATE TABLE STUDENT ( 
-                    StudentID INTEGER REFERENCES REGUSER (UserID),
+                    StudentID INTEGER REFERENCES REGUSER (UserID) UNIQUE,
                     IdNumber VARCHAR(9) 
                     );
     CREATE TABLE COURSE ( 
