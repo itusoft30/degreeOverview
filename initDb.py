@@ -58,7 +58,7 @@ INIT_STATEMENTS = [
     VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 1);
 
     INSERT INTO REGUSER (Name, Surname, Email, Password, IsAdmin) 
-    VALUES ('Ýskender','Akyüz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
+    VALUES ('Iskender','Akyuz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
 
     INSERT INTO STUDENT (StudentID, IdNumber) 
     VALUES ((select UserID from REGUSER where REGUSER.Email='akyuzi15@itu.edu.tr'),"15016000");
