@@ -41,14 +41,17 @@ INIT_STATEMENTS = [
                     Name VARCHAR(30)
                     );
     CREATE TABLE COURSE_OUTCOME (
+                    Course_Outcome_ID SERIAL PRIMARY KEY,
                     Course_ID INTEGER REFERENCES COURSE (Course_ID),
                     Outcome_ID INTEGER REFERENCES OUTCOME (Outcome_ID)
                     );
     CREATE TABLE PREREQUISITE (
+                    Prerequisite_ID SERIAL PRIMARY KEY,
                     Course_ID INTEGER REFERENCES COURSE (Course_ID),
-                    Outcome_ID INTEGER REFERENCES OUTCOME (Outcome_ID)
+                    Requisite_ID INTEGER REFERENCES OUTCOME (Course_ID)
                     );
     CREATE TABLE STUDENT_GRADE (
+                    Student_Grade_ID SERIAL PRIMARY KEY,
                     Student_ID INTEGER REFERENCES STUDENT (Student_ID),
                     Course_ID INTEGER REFERENCES COURSE (Course_ID),
                     Grade VARCHAR(2)
@@ -61,7 +64,58 @@ INIT_STATEMENTS = [
     VALUES ('Iskender','Akyuz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 2);
 
     INSERT INTO STUDENT (Student_ID, Id_Number) 
-    VALUES ((select User_ID from REGUSER where REGUSER.Email='akyuzi15@itu.edu.tr'),'15016000');
+    VALUES ((select User_ID from REGUSER where REGUSER.Email='akyuzi15@itu.edu.tr'),'150150150');
+    
+    INSERT INTO REGUSER (Name, Surname, Email, Password, user_type) 
+    VALUES ('Nurdogan','Karaman','karamann15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 2);
+    
+    INSERT INTO STUDENT (Student_ID, Id_Number) 
+    VALUES ((select User_ID from REGUSER where REGUSER.Email='karamann15@itu.edu.tr'),'150150141');
+    
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Computer Engineering', 'Faculty of Computer and Informatics Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Civil Engineering', 'Faculty of Civil Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Geomatics Engineering', 'Faculty of Civil Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Enviromental Engineering', 'Faculty of Civil Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Architecture', 'Faculty of Architecture');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Urban and Regional Planning', 'Faculty of Architecture');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Interior Architecture', 'Faculty of Architecture');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Landscape Architecture', 'Faculty of Architecture');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Electronics & Communication Engineering', 'Faculty of Electrical and Electronic Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Electrical Engineering', 'Faculty of Electrical and Electronic Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Electronics Engineering', 'Faculty of Electrical and Electronic Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Communication Engineering', 'Faculty of Electrical and Electronic Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Control and Automation Engineering', 'Faculty of Electrical and Electronic Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Mechanical Engineering', 'Faculty of Mechanical Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Manufacturing Engineering', 'Faculty of Mechanical Engineering');
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Management Engineering', 'Faculty of Management);
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Industrial Engineering', 'Faculty of Management);
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Economy', 'Faculty of Management);
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Mathematics Engineering', 'Faculty of Science and Letters);
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Physics Engineering', 'Faculty of Science and Letters);
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Chemistry', 'Faculty of Science and Letters);
+    INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
+    VALUES ('Molecular Biology and Genetics', 'Faculty of Science and Letters);
     """
 ]
 
