@@ -10,7 +10,7 @@ class Department(db.Model):
     department_id = db.Column(db.Integer, primary_key=True)
     department_name = db.Column(db.String(50))
     faculty_name = db.Column(db.String(50))
-    users = db.relationship('RegUser', backref="department")
+    users = db.relationship('RegUser', backref='department', lazy=True)
 
     def __repr__(self):
         return f"department('{self.department_name}', '{self.faculty_name}')"
@@ -18,14 +18,12 @@ class Department(db.Model):
 class RegUser(db.Model):
     __tablename__ = 'reguser'
     user_id = db.Column(db.Integer, primary_key=True)
-    instructors = db.relationship('Instructor', back_populates="user")
-    students = db.relationship('Student', back_populates="user")
     name = db.Column(db.String(30))
     surname = db.Column(db.String(30))
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     user_type = db.Column(db.Integer, default=0)
-    department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'))
+    department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'),nullable=False)
 
     def __repr__(self):
         return f"reguser('{self.name}', '{self.surname}', '{self.email}', '{self.password}', '{self.usertype}'), '{self.department_id}"
