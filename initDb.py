@@ -31,6 +31,7 @@ INIT_STATEMENTS = [
     CREATE TABLE COURSE ( 
                     CourseID SERIAL PRIMARY KEY, 
                     Crn VARCHAR(5),
+                    Name VARCHAR(50),
                     CourseCode VARCHAR(10),
                     InstructorID INTEGER REFERENCES INSTRUCTOR (InstructorID),
                     Credit INTEGER,
