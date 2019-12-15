@@ -31,6 +31,7 @@ INIT_STATEMENTS = [
     CREATE TABLE COURSE ( 
                     Course_ID SERIAL PRIMARY KEY, 
                     Crn VARCHAR(5),
+                    Name VARCHAR(50),
                     Course_Code VARCHAR(10),
                     Instructor_ID INTEGER REFERENCES INSTRUCTOR (Instructor_ID),
                     Credit INTEGER,
@@ -56,19 +57,7 @@ INIT_STATEMENTS = [
                     Course_ID INTEGER REFERENCES COURSE (Course_ID),
                     Grade VARCHAR(2)
                     );
-    INSERT INTO REGUSER (Name, Surname, Email, Password, user_type) 
-    VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
-    INSERT INTO REGUSER (Name, Surname, Email, Password, user_type) 
-    VALUES ('Iskender','Akyuz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 2);
-    INSERT INTO STUDENT (Student_ID, Id_Number) 
-    VALUES ((select User_ID from REGUSER where REGUSER.Email='akyuzi15@itu.edu.tr'),'150150150');
-    
-    INSERT INTO REGUSER (Name, Surname, Email, Password, user_type) 
-    VALUES ('Nurdogan','Karaman','karamann15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 2);
-    
-    INSERT INTO STUDENT (Student_ID, Id_Number) 
-    VALUES ((select User_ID from REGUSER where REGUSER.Email='karamann15@itu.edu.tr'),'150150141');
-    
+       
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
     VALUES ('Computer Engineering', 'Faculty of Computer and Informatics Engineering');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
@@ -113,6 +102,46 @@ INIT_STATEMENTS = [
     VALUES ('Chemistry', 'Faculty of Science and Letters');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
     VALUES ('Molecular Biology and Genetics', 'Faculty of Science and Letters');
+    
+    INSERT INTO REGUSER (Name, Surname, Email, Password, User_type) 
+    VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
+    INSERT INTO REGUSER (Name, Surname, Email, Password, Department_ID, User_type) 
+    VALUES ('Iskender','Akyuz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'), 2);
+    INSERT INTO STUDENT (Student_ID, Id_Number) 
+    VALUES ((select User_ID from REGUSER where REGUSER.Email='akyuzi15@itu.edu.tr'),'150150150');
+    INSERT INTO REGUSER (Name, Surname, Email, Password, Department_ID, User_type) 
+    VALUES ('Nurdogan','Karaman','karamann15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'), 2);
+    INSERT INTO STUDENT (Student_ID, Id_Number) 
+    VALUES ((select User_ID from REGUSER where REGUSER.Email='karamann15@itu.edu.tr'),'150150141');
+    
+    INSERT INTO REGUSER (Name, Surname, Email, Password, Department_ID, User_type) 
+    VALUES ('Hayri Turgut', 'Uyar','uyar@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'), 1);
+    INSERT INTO INSTRUCTOR (Instructor_ID, Title) 
+    VALUES ((select User_ID from REGUSER where REGUSER.Email='uyar@itu.edu.tr'),'Teaching Assistant');
+    
+    INSERT INTO REGUSER (Name, Surname, Email, Password, Department_ID, User_type) 
+    VALUES ('Ayşe', 'Tosun','tosun@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'), 1);
+    INSERT INTO INSTRUCTOR (Instructor_ID, Title) 
+    VALUES ((select User_ID from REGUSER where REGUSER.Email='tosun@itu.edu.tr'),'Assistant Professor');
+    
+    INSERT INTO COURSE (Crn, Name, Course_Code, Instructor_ID, Credit, Department_ID)
+    VALUES ('27521', 'Database Systems', 'BLG317E', (select User_ID from REGUSER where REGUSER.Email='uyar@itu.edu.tr'), 3, (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'));
+    
+    INSERT INTO COURSE (Crn, Name, Course_Code, Instructor_ID, Credit, Department_ID)
+    VALUES ('25236', 'Introduction to C', 'BLG105E', (select User_ID from REGUSER where REGUSER.Email='tosun@itu.edu.tr'), 3, (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'));
+    
+    INSERT INTO OUTCOME (Name) VALUES ('C Programming');
+    INSERT INTO OUTCOME (Name) VALUES ('SQL');
+    INSERT INTO OUTCOME (Name) VALUES ('Basic Programming');
+    INSERT INTO OUTCOME (Name) VALUES ('Algorithm');
+    
+    INSERT INTO COURSE_OUTCOME (Course_ID, Outcome_ID) VALUES ((select Course_ID from COURSE where COURSE.Name='Introduction to C'), (select Outcome_ID from OUTCOME where Outcome.Name='C Programming'));
+    INSERT INTO COURSE_OUTCOME (Course_ID, Outcome_ID) VALUES ((select Course_ID from COURSE where COURSE.Name='Introduction to C'), (select Outcome_ID from OUTCOME where Outcome.Name='Algorithm'));
+    INSERT INTO COURSE_OUTCOME (Course_ID, Outcome_ID) VALUES ((select Course_ID from COURSE where COURSE.Name='Database Systems'), (select Outcome_ID from OUTCOME where Outcome.Name='SQL'));
+    
+    INSERT INTO PREREQUISITE (Course_ID, Requisite_ID) VALUES ((select Course_ID from COURSE where COURSE.Name='Database Systems'), (select Course_ID from COURSE where COURSE.Name='Introduction to C'));
+    
+    INSERT INTO STUDENT_GRADE (Student_ID, Course_ID, Grade) VALUES ((select Student_ID from STUDENT where STUDENT.Student_ID=3), (select Course_ID from COURSE where COURSE.Name='Database Systems'), 'VF');
     """
 ]
 
