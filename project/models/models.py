@@ -39,7 +39,7 @@ class Student(db.Model):
     __tablename__ = 'student'
     id_number = db.Column(db.String(9))
     student_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False, primary_key=True)
-    grades = db.relationship('STUDENT_GRADE', backref='student', lazy=True)
+    grades = db.relationship('Student_Grade', backref='student', lazy=True)
 
     def __repr__(self):
         return f"department('{self.id_number}')"
@@ -51,7 +51,7 @@ class Course(db.Model):
     name = db.Column(db.String(50))
     course_code = db.Column(db.String(10))
     courseOutcomes = db.relationship('Course_Outcome', backref='course', lazy=True)
-    grades = db.relationship('STUDENT_GRADE', backref='course', lazy=True)
+    grades = db.relationship('Student_Grade', backref='course', lazy=True)
 
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructer_id'))
 
@@ -86,7 +86,7 @@ class Prerequisite(db.Model):
     def __repr__(self):
         return f"department('{self.course_id}', '{self.outcome_id}')"
 
-class STUDENT_GRADE(db.Model):
+class Student_Grade(db.Model):
     __tablename__ = 'student_grade'
     student_grade_id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'))
