@@ -66,3 +66,21 @@ class Outcome(db.Model):
 
     def __repr__(self):
         return f"department('{self.name}')"
+
+class Course_Outcome(db.Model):
+    __tablename__ = 'course_outcome'
+    course_outcome_id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'))
+    outcome_id = db.Column(db.Integer, db.ForeignKey('outcome.outcome_id'))
+
+    def __repr__(self):
+        return f"department('{self.course_id}', '{self.outcome_id}')"
+
+class Prerequisite(db.Model):
+    __tablename__ = 'course_outcome'
+    prerequisite_id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'))
+    outcome_id = db.Column(db.Integer, db.ForeignKey('outcome.outcome_id'))
+
+    def __repr__(self):
+        return f"department('{self.course_id}', '{self.outcome_id}')"
