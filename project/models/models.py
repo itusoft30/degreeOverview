@@ -1,9 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-from project import app
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://eihjewuminuans:a7c73a627a7488f86e19d477de45967dc9abd2e85591958438627d0cf4e275a0@ec2-54-247-96-169.eu-west-1.compute.amazonaws.com:5432/d2jv9l5jpv6eep'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+from project.config.Database import db
 
 class Department(db.Model):
     __tablename__ = 'department'
@@ -23,26 +18,28 @@ class RegUser(db.Model):
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     user_type = db.Column(db.Integer, default=0)
-    department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'), nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'),nullable=False)
+    instructer = db.relationship('Instructor', backref='reguser', uselist=False)
+    student = db.relationship('Student', backref='reguser',uselist=False)
+
 
     def __repr__(self):
         return f"reguser('{self.name}', '{self.surname}', '{self.email}', '{self.password}', '{self.user_type}'), '{self.department_id}"
 
 class Instructor(db.Model):
     __tablename__ = 'instructor'
-    instructor_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'))
-    user = db.relationship('RegUser', back_populates="instructors")
     title = db.Column(db.String(50))
-    courses = db.relationship('Course', back_populates="instructor")
+    instructer_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False,primary_key=True)
+    courses = db.relationship('Course', backref='instructor', lazy=True)
 
     def __repr__(self):
         return f"instructor('{self.title}')"
 
 class Student(db.Model):
     __tablename__ = 'student'
-    student_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'))
-    user = db.relationship('RegUser', back_populates="students")
     id_number = db.Column(db.String(9))
+    student_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False, primary_key=True)
+    grades = db.relationship('Student_Grade', backref='student', lazy=True)
 
     def __repr__(self):
         return f"department('{self.id_number}')"
@@ -53,8 +50,10 @@ class Course(db.Model):
     crn = db.Column(db.String(5))
     name = db.Column(db.String(50))
     course_code = db.Column(db.String(10))
-    instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructor_id'))
-    instructor = db.relationship('Instructor', back_populates="courses")
+    courseOutcomes = db.relationship('Course_Outcome', backref='course', lazy=True)
+    grades = db.relationship('Student_Grade', backref='course', lazy=True)
+
+    instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructer_id'))
 
     def __repr__(self):
         return f"department('{self.crn}', '{self.name}', '{self.course_code}', '{self.instructor_id}')"
@@ -63,7 +62,7 @@ class Outcome(db.Model):
     __tablename__ = 'outcome'
     outcome_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
-
+    courseOutcomes = db.relationship('Course_Outcome', backref='outcome', lazy=True)
     def __repr__(self):
         return f"department('{self.name}')"
 
@@ -77,10 +76,22 @@ class Course_Outcome(db.Model):
         return f"department('{self.course_id}', '{self.outcome_id}')"
 
 class Prerequisite(db.Model):
-    __tablename__ = 'course_outcome'
+    __tablename__ = 'prerequisite'
     prerequisite_id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'))
-    outcome_id = db.Column(db.Integer, db.ForeignKey('outcome.outcome_id'))
+    requisite_id = db.Column(db.Integer, db.ForeignKey('course.course_id'))
+    course = db.relationship("Course", foreign_keys=[course_id])
+    requisite = db.relationship("Course", foreign_keys=[requisite_id])
 
     def __repr__(self):
         return f"department('{self.course_id}', '{self.outcome_id}')"
+
+class Student_Grade(db.Model):
+    __tablename__ = 'student_grade'
+    student_grade_id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.student_id'))
+    course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'))
+    grade = db.Column(db.String(2))
+
+    def __repr__(self):
+        return f"department('{self.student_id}', '{self.course_id}','{self.grade}')"
