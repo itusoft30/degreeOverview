@@ -3,10 +3,36 @@
     src: url(LemonMilk.otf);
 }
 
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+ 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+    background-color: red;
+    position: relative;
+    margin:0 auto;
+    padding-bottom: 6rem;
+    min-height: 89.9%;
+}
+  
+#main {
+    padding: 1em;
+    margin-top: 6em;
+    position: relative;
+    min-height: 100%;
+}
+  
 nav {
     font-family: myFont;
     font-size: 1.8em;
-    background: black;
+    background: #004445;
 }
 
 #id-navbar  a{
@@ -15,9 +41,19 @@ nav {
 
 #id-navbar .soft-active a{
     color: black;
-    background: rgb(255, 255, 255);
+    background: #ffd800;
 }
 
-.jumbotron-fluid {
-    background: blue;
+#id-navbar  a:hover{
+    color: black;
+}
+.cs-footer {
+    position: absolute;
+    height: 6em;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 2rem;
+    background-color: #ececec;
+    text-align: center;
 }
