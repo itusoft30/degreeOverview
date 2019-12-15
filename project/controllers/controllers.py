@@ -7,18 +7,40 @@ from project.models.Hello import Hello
 #route index
 @app.route('/', methods = ['GET'])
 def index():
-    return "home"
-
+    return ("mainpage")
 
 @app.route('/courses', methods = ['GET'])
 def courses():
-    return ("courses page")
+    coursesData = [] # get all courses from model
+    departmentsData = [] # get all departments from model
+    termsData = [] # get all terms from model
+    return render_template('courses.html')
 
 @app.route('/instructors', methods = ['GET'])
 def instructors():
-    return ("instructors")
+    instructorsData = {} # use model here to get instructors
+    return render_template('instructors.html')
 
 
 @app.route('/instructor/<instructorid>', methods = ['GET'])
-def getInstructor(instructorid):
-    return ("instructor with id : %s" % instructorid)
+def getInstructorWithID(instructorid):
+
+    instructorData = 0 # Use model method here to get data with id <instructorid>
+
+    # check if the instructor really exists
+
+    return render_template('instructors.html', data = instructorData)
+
+@app.route('/profile', methods = ['GET'])
+def getProfile():
+    userData = [] # get user data with logged in ID from model
+    return ("my profile")
+
+
+@app.route('/updateprofile', methods = ['POST'])
+def updateProfile():
+    return ("my profile updated")
+
+# @app.route('/changepassword', methods = ['POST'])
+# def getProfile():
+#     return ("changed password")
