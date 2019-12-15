@@ -10,7 +10,7 @@ from project.models.Hello import Hello
 """
 #route index
 @app.route('/', methods = ['GET'])
-def index():
+def Index():
     data = {
         "title": "Hello World",
         "body": "Flask simple MVC"
