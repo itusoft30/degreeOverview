@@ -48,7 +48,7 @@ INIT_STATEMENTS = [
     CREATE TABLE PREREQUISITE (
                     Prerequisite_ID SERIAL PRIMARY KEY,
                     Course_ID INTEGER REFERENCES COURSE (Course_ID),
-                    Requisite_ID INTEGER REFERENCES OUTCOME (Course_ID)
+                    Requisite_ID INTEGER REFERENCES COURSE (Course_ID)
                     );
     CREATE TABLE STUDENT_GRADE (
                     Student_Grade_ID SERIAL PRIMARY KEY,
@@ -56,13 +56,10 @@ INIT_STATEMENTS = [
                     Course_ID INTEGER REFERENCES COURSE (Course_ID),
                     Grade VARCHAR(2)
                     );
-
     INSERT INTO REGUSER (Name, Surname, Email, Password, user_type) 
     VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
-
     INSERT INTO REGUSER (Name, Surname, Email, Password, user_type) 
     VALUES ('Iskender','Akyuz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 2);
-
     INSERT INTO STUDENT (Student_ID, Id_Number) 
     VALUES ((select User_ID from REGUSER where REGUSER.Email='akyuzi15@itu.edu.tr'),'150150150');
     
@@ -103,19 +100,19 @@ INIT_STATEMENTS = [
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
     VALUES ('Manufacturing Engineering', 'Faculty of Mechanical Engineering');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Management Engineering', 'Faculty of Management);
+    VALUES ('Management Engineering', 'Faculty of Management');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Industrial Engineering', 'Faculty of Management);
+    VALUES ('Industrial Engineering', 'Faculty of Management');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Economy', 'Faculty of Management);
+    VALUES ('Economy', 'Faculty of Management');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Mathematics Engineering', 'Faculty of Science and Letters);
+    VALUES ('Mathematics Engineering', 'Faculty of Science and Letters');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Physics Engineering', 'Faculty of Science and Letters);
+    VALUES ('Physics Engineering', 'Faculty of Science and Letters');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Chemistry', 'Faculty of Science and Letters);
+    VALUES ('Chemistry', 'Faculty of Science and Letters');
     INSERT INTO DEPARTMENT (Department_Name, Faculty_Name) 
-    VALUES ('Molecular Biology and Genetics', 'Faculty of Science and Letters);
+    VALUES ('Molecular Biology and Genetics', 'Faculty of Science and Letters');
     """
 ]
 
