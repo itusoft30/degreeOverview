@@ -1,5 +1,4 @@
 from cryptography.fernet import Fernet
-import base64
 
 class Crypto:
     def __init__(self):
@@ -15,3 +14,12 @@ class Crypto:
         message = secret.encode()
         return self.f.decrypt(message)
 
+    @staticmethod
+    def checkPassword(password,secret):
+        check = False
+        cry = Crypto()
+        print(cry.secret2password(secret))
+        print(password)
+        if(password == cry.secret2password(secret).decode("utf-8")):
+            check = True
+        return check
