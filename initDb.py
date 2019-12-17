@@ -34,7 +34,7 @@ INIT_STATEMENTS = [
                     Name VARCHAR(50),
                     Course_Code VARCHAR(10),
                     Instructor_ID INTEGER REFERENCES INSTRUCTOR (Instructor_ID),
-                    Credit INTEGER,
+                    Credit VARCHAR(3),
                     Department_ID INTEGER REFERENCES DEPARTMENT (Department_ID)
                     );
     CREATE TABLE OUTCOME (
