@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from project import app
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zgolxdxdhgqrwk:3f2f58e0d6baa234f1569a4a92bf9043c48a534edb6027902e488c8999fe8e33@ec2-174-129-33-30.compute-1.amazonaws.com:5432/df6qc7mlpccpkh'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://eihjewuminuans:a7c73a627a7488f86e19d477de45967dc9abd2e85591958438627d0cf4e275a0@ec2-54-247-96-169.eu-west-1.compute.amazonaws.com:5432/d2jv9l5jpv6eep'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)

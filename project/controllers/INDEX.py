@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for
 from project.models.Hello import Hello
 """
 #route index
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/', methods = ['GET'])
 def index():
     index_data = []
     return render_template('courses.html', data=index_data)

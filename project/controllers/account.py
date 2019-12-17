@@ -1,13 +1,12 @@
 from project import app
-from flask import render_template, redirect, url_for,flash, request
+from flask import render_template, redirect, url_for,flash
 from flask_login import login_user, current_user, logout_user, login_required
-from project.controllers.forms import LoginForm, RegistrationForm
+from project.controllers.forms import LoginForm
 from project.config.crypto import Crypto
-from project.models.models import RegUser, Department
-from project.models.dbOperations import *
+from project.models.models import RegUser
 
 #route login
-@app.route('/login', methods = ['GET','POST'])
+@app.route('/Login', methods = ['GET','POST'])
 def Login():
     index_data = []
     form = LoginForm()
@@ -20,24 +19,3 @@ def Login():
             flash('Login Unsuccessful. Please check email and password', 'danger')
 
     return render_template('login.html',form=form, data=index_data,title='Login')
-
-
-@app.route('/register', methods = ['GET','POST'])
-def Register():
-    departmentData = Department.query.all()
-    departments = []
-    for dept in departmentData:
-        departments.append(dept.department_name)
-    print("Form öncesi")
-    form = RegistrationForm()
-    if request == 'POST':
-        print("Post sonrasi")
-        print(form.name.data)
-        print(form.surname.data)
-        print(form.title.data)
-    if form.validate_on_submit():
-        if register(form):
-            flash('Your account has been created! You are now able to log in', 'success')
-            return render_template('home.html', title='Home')
-
-    return render_template('register.html', form=form, title='Register')
