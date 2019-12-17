@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- FOR ICONS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!-- FOR JQUERY -->
+
+  <script> 
+    $(function(){
+      $("#Content").load("navbar.html"); 
+    });
+  </script> 
+
+</head>
+
+<body id="id-profile-body">
+  <nav id ="id-navbar" class="navbar navbar-expand-sm  navbar-dark fixed-top ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+        <ul class="navbar-nav font-weight-bold">
+        <li class="nav-item">
+            <a class="nav-link" href="home.html">HOME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="courses.html">COURSES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="instructors.html">INSTRUCTORS</a>
+        </li>
+        <li class="nav-item soft-active">
+            <a class="nav-link" href="profile.html">PROFILE</a>
+        </li>    
+        </ul>
+    </div>  
+  </nav>
+
+  <div id="id-main" class="container mb-4">
+    <div class="row justify-content-center">
+      <div class="col-6">
+
+        <div class="d-flex">
+          <h5 class="col p-0 font-weight-bold">User Information</h5>
+          <a id="id-std-link" href="#" class="cs-cs float-right text-decoration-none">Edit</a>  
+        </div>
+
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="font-weight-bold">User Type</td>
+              <td>Student</td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">Name</td>
+              <td>Nurdoğan Karaman</td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">Department</td>
+              <td>Computer Engineering</td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">Student ID</td>
+              <td>190190190</td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">Email</td>
+              <td>karamann15@itu.edu.tr</td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">Password</td>
+              <td>********</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <button id="id-logout" class="btn float-right">Logout</button>  
+        
+
+      </div>
+    </div>
+  </div>
+  
+
+
+  
+  <div class="cs-footer">
+    <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>
+  </div>
+
+    
+</body>
+</html>
