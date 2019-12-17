@@ -18,8 +18,6 @@ class Crypto:
     def checkPassword(password,secret):
         check = False
         cry = Crypto()
-        print(cry.secret2password(secret))
-        print(password)
         if(password == cry.secret2password(secret).decode("utf-8")):
             check = True
         return check
