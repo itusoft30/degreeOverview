@@ -5,12 +5,11 @@ from flask import render_template, redirect, url_for
 from project.models.Hello import Hello
 """
 #route index
-@app.route('/', methods = ['GET'])
-def index():
-    index_data = []
-    return render_template('courses.html', data=index_data)
-
-
+@app.route('/')
+@app.route('/Home',methods= ['GET'])
+def home():
+    home_data = []
+    return render_template('courses.html', data=home_data)
 
 # @app.route('/changepassword', methods = ['POST'])
 # def getProfile():

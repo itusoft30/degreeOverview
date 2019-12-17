@@ -1,4 +1,10 @@
 from project.config.Database import db
+from flask_login import UserMixin
+from project import login_manager
+
+@login_manager.user_loader
+def load_user(user_id):
+    return RegUser.query.get(int(user_id))
 
 class Department(db.Model):
     __tablename__ = 'department'
@@ -10,7 +16,7 @@ class Department(db.Model):
     def __repr__(self):
         return f"department('{self.department_name}', '{self.faculty_name}')"
 
-class RegUser(db.Model):
+class RegUser(db.Model,UserMixin):
     __tablename__ = 'reguser'
     user_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
@@ -22,6 +28,8 @@ class RegUser(db.Model):
     instructer = db.relationship('Instructor', backref='reguser', uselist=False)
     student = db.relationship('Student', backref='reguser',uselist=False)
 
+    def get_id(self):
+        return (self.user_id)
 
     def __repr__(self):
         return f"reguser('{self.name}', '{self.surname}', '{self.email}', '{self.password}', '{self.user_type}'), '{self.department_id}"
