@@ -19,7 +19,7 @@ class RegUser(db.Model):
     password = db.Column(db.String(100), nullable=False)
     user_type = db.Column(db.Integer, default=0)
     department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'),nullable=False)
-    instructer = db.relationship('Instructor', backref='reguser', uselist=False)
+    instructor = db.relationship('Instructor', backref='reguser', uselist=False)
     student = db.relationship('Student', backref='reguser',uselist=False)
 
 
