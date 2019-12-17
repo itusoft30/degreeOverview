@@ -17,9 +17,12 @@ class Crypto:
     @staticmethod
     def checkPassword(password,secret):
         check = False
-        cry = Crypto()
-        print(cry.secret2password(secret))
-        print(password)
-        if(password == cry.secret2password(secret).decode("utf-8")):
+        cryp = Crypto()
+        if(password == cryp.secret2password(secret).decode("utf-8")):
             check = True
         return check
+
+    @staticmethod
+    def convertPassword(password):
+        cryp = Crypto()
+        return cryp.password2secret(password)
