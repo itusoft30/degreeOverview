@@ -8,7 +8,7 @@ from project.models.Hello import Hello
 @app.route('/', methods = ['GET'])
 def index():
     index_data = []
-    return render_template('instructors.html', data=index_data)
+    return render_template('courses.html', data=index_data)
 
 
 
