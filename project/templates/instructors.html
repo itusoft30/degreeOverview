@@ -1,44 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>DegreeOverview</title>
+  <title>Instructors</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css')}}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- FOR ICONS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"> 
+    <script> 
+      $(function(){
+        $("#Content").load("navbar.html"); 
+      });
+    </script> 
 </head>
-
-<body>
-
+  
+<body >
+  
   <nav id ="id-navbar" class="navbar navbar-expand-sm  navbar-dark fixed-top ">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-      <ul class="navbar-nav font-weight-bold">
+        <ul class="navbar-nav font-weight-bold">
         <li class="nav-item">
-          <a class="nav-link" href="#">HOME</a>
+            <a class="nav-link" href="home.html">HOME</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="courses.html">COURSES</a>
+            <a class="nav-link" href="courses.html">COURSES</a>
         </li>
         <li class="nav-item soft-active">
-          <a class="nav-link" href="instructors.html">INSTRUCTORS</a>
+            <a class="nav-link" href="instructors.html">INSTRUCTORS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">PROFILE</a>
+            <a class="nav-link" href="profile.html">PROFILE</a>
         </li>    
-      </ul>
+        </ul>
     </div>  
   </nav>
 
-  <div id="main" class="container mb-4">
+
+  <div id="id-main" class="container mb-4">
     <div class="row">
 
       <div class="col-sm-4">
@@ -75,22 +81,22 @@
 
           <div class="list-group ">
 
-            <a href="#" class="list-group-item list-group-item-action d-flex p-2">
+            <a href="HayriTurgutUyar.html" class="list-group-item list-group-item-action d-flex p-2">
               <div class="col-5 font-weight-bold">Ahmet Cüneyd Tantuğ</div>
               <div class="col">Computer And Informatics/ Comp. Eng.</div>
             </a>
 
-            <a href="#" class="list-group-item list-group-item-action d-flex p-2">
+            <a href="HayriTurgutUyar.html" class="list-group-item list-group-item-action d-flex p-2">
               <div class="col-5 font-weight-bold">Ayşe Tosun</div>
               <div class="col">Computer And Informatics/ Comp. Eng.</div>
             </a>
 
-            <a href="#" class="list-group-item list-group-item-action d-flex p-2">
+            <a href="HayriTurgutUyar.html" class="list-group-item list-group-item-action d-flex p-2">
               <div class="col-5 font-weight-bold">Hayri Turgut Uyar</div>
               <div class="col">Computer And Informatics/ Comp. Eng.</div>
             </a>
   
-            <a href="#" class="list-group-item list-group-item-action d-flex p-2">
+            <a href="HayriTurgutUyar.html" class="list-group-item list-group-item-action d-flex p-2">
               <div class="col-5 font-weight-bold">Çiçek Ersoy Kekevi</div>
               <div class="col">Management/ Man. Eng.</div>
             </a>
@@ -102,6 +108,7 @@
 
     </div>
   </div>
+
 
   <div class="cs-footer">
     <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>

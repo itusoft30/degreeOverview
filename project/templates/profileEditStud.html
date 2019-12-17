@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Edit</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css')}}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- FOR ICONS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!-- FOR JQUERY -->
+
+</head>
+
+<body id="idBody-Login">
+
+  <nav id ="id-navbar" class="navbar navbar-expand-sm  navbar-dark fixed-top ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+        <ul class="navbar-nav font-weight-bold">
+        <li class="nav-item">
+            <a class="nav-link" href="home.html">HOME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="courses.html">COURSES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="instructors.html">INSTRUCTORS</a>
+        </li>
+        <li class="nav-item soft-active">
+            <a class="nav-link" href="profile.html">PROFILE</a>
+        </li>    
+        </ul>
+    </div>  
+  </nav>
+
+  <div id="id-main" class="container pt-5">
+    <div class="row justify-content-center">
+      <div>
+
+        <div>  
+          <h4 class="col p-0 font-weight-bold">User Information</h4>
+          <hr>
+        </div>
+
+        <form action="/action_page.php">
+
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control bg-light" placeholder="First Name" value="Nurdoğan">
+              <input type="text" class="form-control bg-light" placeholder="Last Name" value="Karaman">
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control bg-light" placeholder="Email" id="email" name="email" value="karamann15" required>
+              <div class="input-group-append"><span class="input-group-text">@itu.edu.tr</span></div>
+            </div>
+          </div>
+
+          <select name="soft-department" class="form-group custom-select bg-light">
+            <option >Department</option>
+            <option selected value="COEN">Computer Engineering</option>
+            <option value="ECEN">Electronics and Communication Engineering</option>
+            <option value="ARCH">Architecture</option>
+          </select>
+
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">ID</span>
+            </div>
+            <input type="text" class="form-control bg-light" placeholder="ID" value="150150141">
+          </div>
+
+
+          <div class="form-group form-check pl-0 float-right">
+            <button type="submit" class="cs-std-link">Submit</button>
+          </div>
+
+        </form>
+
+        <form action="/action_page.php">
+            <div class="form-group ">
+              <input type="password" class="form-control bg-light" placeholder="Password"  id="pwd" name="pswd" value="******" required>
+            </div>
+  
+            <div class="form-group">
+              <input type="password" class="form-control bg-light" placeholder="re-Password"  id="pwd" name="pswd" value="******" required>
+            </div>
+  
+            <div class="form-group form-check pl-0 float-right">
+              <button type="submit" class="cs-std-link">Submit</button>
+            </div>
+  
+        </form> 
+      
+      </div>
+    </div>
+  </div>
+  
+
+
+  
+  <div class="cs-footer">
+    <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>
+  </div>
+
+    
+</body>
+</html>
