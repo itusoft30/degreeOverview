@@ -60,9 +60,8 @@ body {
     background-color: rgb(46, 46, 46);
 }
 
-:hover#id-std-link {    
-    color: black;
-    background: rgb(240, 240, 240);
+:hover.cs-std-link {    
+    color: wh;
 }
 
 nav {
@@ -149,4 +148,5 @@ nav {
     background-color: #ececec;
     text-align: center;
 }
+
 
