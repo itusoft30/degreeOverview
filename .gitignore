@@ -5,4 +5,4 @@
 /.vs/degreeOverview/v15/.suo
 /.vs/degreeOverview/v15
 /.vs
-.pyc
+*.pyc
