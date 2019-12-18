@@ -30,78 +30,78 @@
     <div class="row justify-content-center">
 
       <div class="d-flsex flex-csolumn">
-        <form method="POST" action="">
+          <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <div class="form-group">
+                  <div class="input-group mb-3">
+                      {% if form.name.errors %}
+                      {{ form.name(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.name.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.name(class="form-control bg-light") }}
+                      {% endif %}
 
-          <div class="form-group">
-              <div class="input-group mb-3">
-                  {% if form.name.errors %}
-                  {{ form.name(class="form-control form-control-lg is-invalid") }}
+                      {% if form.surname.errors %}
+                      {{ form.surname(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.surname.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.surname(class="form-control bg-light") }}
+                      {% endif %}
+                  </div>
+              </div>
+
+              <div class="form-group ">
+                  <div class="input-group mb-3">
+                      {% if form.email.errors %}
+                      {{ form.email(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.email.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.email(class="form-control bg-light") }}
+                      {% endif %}
+                      <div class="input-group-append"><span class="input-group-text">@itu.edu.tr</span></div>
+                  </div>
+              </div>
+
+              <div class="form-group ">
+                  {% if form.password.errors %}
+                  {{ form.password(class="form-control form-control-lg is-invalid") }}
                   <div class="invalid-feedback">
-                      {% for error in form.name.errors %}
+                      {% for error in form.password.errors %}
                       <span>{{ error }}</span>
                       {% endfor %}
                   </div>
                   {% else %}
-                  {{ form.name(class="form-control bg-light") }}
+                  {{ form.password(class="form-control bg-light") }}
                   {% endif %}
+              </div>
 
-                  {% if form.surname.errors %}
-                  {{ form.surname(class="form-control form-control-lg is-invalid") }}
+              <div class="form-group">
+                  {% if form.confirm_password.errors %}
+                  {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
                   <div class="invalid-feedback">
-                      {% for error in form.surname.errors %}
+                      {% for error in form.confirm_password.errors %}
                       <span>{{ error }}</span>
                       {% endfor %}
                   </div>
                   {% else %}
-                  {{ form.surname(class="form-control bg-light") }}
+                  {{ form.confirm_password(class="form-control bg-light") }}
                   {% endif %}
               </div>
-          </div>
-
-          <div class="form-group ">
-              <div class="input-group mb-3">
-                  {% if form.email.errors %}
-                  {{ form.email(class="form-control form-control-lg is-invalid") }}
-                  <div class="invalid-feedback">
-                      {% for error in form.email.errors %}
-                      <span>{{ error }}</span>
-                      {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.email(class="form-control bg-light") }}
-                  {% endif %}
-                  <div class="input-group-append"><span class="input-group-text">@itu.edu.tr</span></div>
+              <div class="form-group ">
+                  {{ form.department(class="form-group custom-select bg-ligh") }}
               </div>
-          </div>
-
-          <div class="form-group ">
-              {% if form.password.errors %}
-              {{ form.password(class="form-control form-control-lg is-invalid") }}
-              <div class="invalid-feedback">
-                  {% for error in form.password.errors %}
-                  <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-              {% else %}
-              {{ form.password(class="form-control bg-light") }}
-              {% endif %}
-          </div>
-
-          <div class="form-group">
-              {% if form.confirm_password.errors %}
-              {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-              <div class="invalid-feedback">
-                  {% for error in form.confirm_password.errors %}
-                  <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-              {% else %}
-              {{ form.confirm_password(class="form-control bg-light") }}
-              {% endif %}
-          </div>
-          <div class="form-group ">
-              {{ form.department(class="form-group custom-select bg-ligh") }}
-          </div>
               <div class="form-group" style="width:25em; position: absolute;">
                   <div id="expand-id" class="form-group collapse show input-group">
                       <div class="input-group-prepend">
@@ -121,7 +121,7 @@
 
                   <div id="expand-id" class="form-group collapse input-group">
                       <div class="input-group-prepend">
-                          <span class="input-group-text">{{ form.title.label }}</span>
+                          <span class="input-group-text">{{ form.student_no.label }}</span>
                       </div>
                       {% if form.student_no.errors %}
                       {{ form.student_no(class="form-control form-control-lg is-invalid") }}
@@ -141,13 +141,14 @@
                   <div class="custom-control custom-switch pt-1">
                       <input type="checkbox" class="custom-control-input" data-toggle="collapse" data-target="#expand-id" id="switch1" name="example">
                       <label class="custom-control-label" for="switch1">Are you a <kbd>Student?</kbd></label>
+
                   </div>
               </div>
 
               <div class="form-group form-check pl-0 float-right">
                   {{ form.submit(class="cs-std-link") }}
               </div>
-</form>  
+          </form>  
       </div>
       
     </div>

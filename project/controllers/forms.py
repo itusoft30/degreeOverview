@@ -20,7 +20,6 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', 
                                      validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "re-Password"})
     department = SelectField('Department:', validators=[DataRequired()], choices=[(dept.department_id, dept.department_name) for dept in Department.query], coerce= int, render_kw={"placeholder": "Department"})
-    user_type = SelectField('User type:', validators=[DataRequired()], choices=[('1', 'Instructor'), ('2', 'Student')], coerce= int)
     title = StringField('Title', validators=[Length(max=30)], render_kw={"placeholder": "Title"})
     student_no = StringField('Student No', validators=[Length(max=30)], render_kw={"placeholder": "Student Number"})
     submit = SubmitField('Sign Up')

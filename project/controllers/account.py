@@ -24,20 +24,12 @@ def Login():
 
 @app.route('/register', methods = ['GET','POST'])
 def Register():
-    departmentData = Department.query.all()
-    departments = []
-    for dept in departmentData:
-        departments.append(dept.department_name)
-    print("Form öncesi")
     form = RegistrationForm()
-    if request == 'POST':
-        print("Post sonrasi")
-        print(form.name.data)
-        print(form.surname.data)
-        print(form.title.data)
     if form.validate_on_submit():
         if register(form):
-            flash('Your account has been created! You are now able to log in', 'success')
+            flash('Your account has been created! You are now able to login.', 'success')
             return render_template('home.html', title='Home')
+        else:
+            flash('The email is already taken.')
 
     return render_template('register.html', form=form, title='Register')
