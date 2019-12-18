@@ -6,8 +6,8 @@ from project.models.models import Course, Outcome, Department, RegUser
 
 class LoginForm(FlaskForm):
     email = StringField('Email',
-                        validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+                        validators=[DataRequired()], render_kw={"placeholder": "Email"})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     submit = SubmitField('Login')
 
   

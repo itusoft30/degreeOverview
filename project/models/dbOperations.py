@@ -4,9 +4,6 @@ from project.config.crypto import Crypto
 from project.config.Database import db
 
 
-
-
-
 def register(form):
     secret_password = Crypto.convertPassword(form.password.data)
     user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
@@ -30,5 +27,22 @@ def register(form):
     else:
         print("The email is already taken.")
         return False
+
+def getUserData(user_id):
+    userData = {}
+    user = RegUser.query.filter_by(user_id=user_id).first()
+    userData['type'] = 'Instructor' if user.user_type == 1 else 'Student'
+    userData['name'] = user.name
+    userData['surname'] = user.surname
+    userData['department'] = Department.query.filter_by(department_id=user.department_id).first().department_name
+
+    if user.user_type == 1 :
+        userData['private_info'] = user.instructor.title
+    else:
+        userData['private_info'] = user.student.id_number
+
+    userData['email'] = user.email
+    
+    return userData
 
 

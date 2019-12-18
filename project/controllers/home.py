@@ -6,10 +6,10 @@ from project.models.Hello import Hello
 """
 #route index
 @app.route('/')
-@app.route('/Home',methods= ['GET'])
-def home():
+@app.route('/Home', methods= ['GET'])
+def Home():
     home_data = []
-    return render_template('courses.html', data=home_data)
+    return render_template('rootHOME.html', data=home_data, title='Home')
 
 # @app.route('/changepassword', methods = ['POST'])
 # def getProfile():

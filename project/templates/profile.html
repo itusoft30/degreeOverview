@@ -11,23 +11,27 @@
       <tbody>
         <tr>
           <td class="font-weight-bold">User Type</td>
-          <td>Student</td>
+          <td> {{ user.type }} </td>
         </tr>
         <tr>
           <td class="font-weight-bold">Name</td>
-          <td>Nurdoğan Karaman</td>
+          <td> {{ user.name }} {{ user.surname }} </td>
         </tr>
         <tr>
           <td class="font-weight-bold">Department</td>
-          <td>Computer Engineering</td>
+          <td> {{ user.department }} </td>
         </tr>
         <tr>
-          <td class="font-weight-bold">Student ID</td>
-          <td>190190190</td>
+          {% if user.user_type == 'Instructor' %}
+            <td class="font-weight-bold">Title</td>
+          {% else %}
+            <td class="font-weight-bold">Student ID</td>
+          {% endif %}
+          <td> {{ user.private_info }} </td>
         </tr>
         <tr>
           <td class="font-weight-bold">Email</td>
-          <td>karamann15@itu.edu.tr</td>
+          <td> {{ user.email }} </td>
         </tr>
         <tr>
           <td class="font-weight-bold">Password</td>

@@ -7,19 +7,19 @@ from project.models.models import RegUser, Department
 from project.models.dbOperations import *
 
 #route login
-@app.route('/login', methods = ['GET','POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def Login():
     index_data = []
     form = LoginForm()
     if form.validate_on_submit():
         user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
         if user.user_id and Crypto.checkPassword(form.password.data, user.password):
-            login_user(user, remember=form.remember.data)
-            return redirect(url_for('index'))
+            login_user(user)
+            return redirect(url_for('Home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
 
-    return render_template('login.html',form=form, data=index_data,title='Login')
+    return render_template('login.html',form=form, data=index_data, title='Login')
 
 
 @app.route('/register', methods = ['GET','POST'])
