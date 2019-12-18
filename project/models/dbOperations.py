@@ -3,9 +3,8 @@ from project.models.models import *
 from project.config.crypto import Crypto
 from project.config.Database import db
 
-@login_manager.user_loader
-def load_user(user_id):
-    return RegUser.query.get(int(user_id))
+
+
 
 
 def register(form):
