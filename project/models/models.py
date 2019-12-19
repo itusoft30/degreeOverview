@@ -12,6 +12,7 @@ class Department(db.Model):
     department_name = db.Column(db.String(50))
     faculty_name = db.Column(db.String(50))
     users = db.relationship('RegUser', backref='department', lazy=True)
+    courses = db.relationship('Course', backref='department', lazy=True)
 
     def __repr__(self):
         return f"department('{self.department_name}', '{self.faculty_name}')"
@@ -26,7 +27,7 @@ class RegUser(db.Model,UserMixin):
     user_type = db.Column(db.Integer, default=0)
     department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'),nullable=False)
     instructor = db.relationship('Instructor', backref='reguser', uselist=False)
-    student = db.relationship('Student', backref='reguser',uselist=False)
+    student = db.relationship('Student', backref='reguser', uselist=False)
 
     def get_id(self):
         return (self.user_id)
@@ -55,7 +56,7 @@ class RegUser(db.Model,UserMixin):
 class Instructor(db.Model):
     __tablename__ = 'instructor'
     title = db.Column(db.String(50))
-    instructor_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False,primary_key=True)
+    instructor_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False, primary_key=True)
     courses = db.relationship('Course', backref='instructor', lazy=True)
 
     def __repr__(self):
@@ -76,10 +77,12 @@ class Course(db.Model):
     crn = db.Column(db.String(5))
     name = db.Column(db.String(50))
     course_code = db.Column(db.String(10))
+    credit = db.Column(db.String(3))
     courseOutcomes = db.relationship('Course_Outcome', backref='course', lazy=True)
     grades = db.relationship('Student_Grade', backref='course', lazy=True)
 
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructor_id'))
+    department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'))
 
     def __repr__(self):
         return f"department('{self.crn}', '{self.name}', '{self.course_code}', '{self.instructor_id}')"
@@ -110,7 +113,7 @@ class Prerequisite(db.Model):
     requisite = db.relationship("Course", foreign_keys=[requisite_id])
 
     def __repr__(self):
-        return f"department('{self.course_id}', '{self.outcome_id}')"
+        return f"department('{self.course_id}', '{self.requisite_id}')"
 
 class Student_Grade(db.Model):
     __tablename__ = 'student_grade'

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>BLG 105E</title>
+  <title> {{ course.course_name }} </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,16 +25,16 @@
     <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
         <ul class="navbar-nav font-weight-bold">
         <li class="nav-item">
-            <a class="nav-link" href="home.html">HOME</a>
+            <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
         </li>
         <li class="nav-item soft-active">
-            <a class="nav-link" href="courses.html">COURSES</a>
+            <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="instructors.html">INSTRUCTORS</a>
+            <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="profile.html">PROFILE</a>
+            <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
         </li>    
         </ul>
     </div>  
@@ -52,32 +52,40 @@
 
           <ul class="list-group">
             <li class="list-group-item d-flex active">
-              <div class="col font-weight-bold display-5">BLG 105E</div>
-              <div class="col font-weight-bold">Intro. to C Prog.</div>
+              <div class="col font-weight-bold display-5"> {{ course.course_code }} </div>
+              <div class="col font-weight-bold">{{ course.course_name }}</div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Department</div>
-              <div class="col">Computer Engineering</div>
+              <div class="col"> {{ course.department}} </div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Lecturer</div>
-              <div class="col">Hayri Turgut Uyar</div>
+              <div class="col">{{ course.instructor }}</div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Prerequisite/s</div>
-              <div class="col">BLG 444E or BLG 422E</div>
+              <div class="col">
+                {% if course.prerequisites %}
+                  {% for prerequisite in course.prerequisites %}
+                    <a href="{{ url_for('course', course_id=prerequisite.course_id) }}">
+                      {{ prerequisite.name }} 
+                    </a>
+                  {% endfor %}
+                {% endif %}
+              </div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Outcome/s</div>
-              <div class="col">C Programming, Coding  </div>
+              <div class="col">{{ course.outcomes }}  </div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">CRN</div>
-              <div class="col"><span class="badge badge-primary badge-pill">12447</span></div>
+              <div class="col"><span class="badge badge-primary badge-pill">{{ course.crn }}</span></div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Credit</div>
-              <div class="col"><span class="badge badge-primary badge-pill">4.0</span></div>
+              <div class="col"><span class="badge badge-primary badge-pill">{{ course.credit }}</span></div>
             </li>
             <li class="list-group-item text-center">
               <div class="btn-group btn-group-lg p-2">
