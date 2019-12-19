@@ -3,10 +3,6 @@ from project.models.models import *
 from project.config.crypto import Crypto
 from project.config.Database import db
 
-
-
-
-
 def register(form):
     secret_password = Crypto.convertPassword(form.password.data)
     user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
