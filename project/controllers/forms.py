@@ -46,14 +46,14 @@ class ChangePasswordForm(FlaskForm):
     
 
 class CourseRegistrationForm(FlaskForm):
-    name = StringField('Course Name:', validators=[DataRequired(), Length(min=5, max=50)])
-    crn = StringField('CRN:', validators=[DataRequired(), Length(min=5, max=5)])
-    course_code = StringField('Course Code:',validators=[DataRequired(), Length(min=6, max=8)])
-    credit = StringField('Credit:', validators=[DataRequired(), Length(min=1)])
+    name = StringField('Name', validators=[DataRequired(), Length(min=5, max=50)])
+    crn = StringField('CRN', validators=[DataRequired(), Length(min=5, max=5)], render_kw={"placeholder": "12560"})
+    course_code = StringField('Code',validators=[DataRequired(), Length(min=6, max=8)], render_kw={"placeholder": "MAT103E"})
+    credit = StringField('Credit', validators=[DataRequired(), Length(min=1, max=3)], render_kw={"placeholder": "3.0"})
     department = SelectField('Department:', validators=[DataRequired()], choices=[(dept.department_id, dept.department_name) for dept in Department.query], coerce= int)
     prerequisites = SelectMultipleField('Prerequisite/s:', choices=[(course.course_id, course.course_code) for course in Course.query], coerce= int)
     outcomes = SelectMultipleField('Outcome/s:', choices=[(out.outcome_id, out.name) for out in Outcome.query], coerce= int)
-    submit = SubmitField('Submit')
+    submit = SubmitField('Add')
 
 class InstructorUpdateProfileForm(FlaskForm):
     name = StringField('Name:', validators=[DataRequired(), Length(min=2, max=30)])
