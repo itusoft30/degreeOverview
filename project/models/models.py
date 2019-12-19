@@ -32,6 +32,24 @@ class RegUser(db.Model,UserMixin):
     def get_id(self):
         return (self.user_id)
 
+    def isAdmin(self):
+        if(self.user_type == 0):
+            return True
+        else:
+            return False
+
+    def isInstructer(self):
+        if(self.user_type == 1):
+            return True
+        else:
+            return False
+
+    def isStudent(self):
+        if(self.user_type == 2):
+            return True
+        else:
+            return False
+
     def __repr__(self):
         return f"reguser('{self.name}', '{self.surname}', '{self.email}', '{self.password}', '{self.user_type}'), '{self.department_id}"
 

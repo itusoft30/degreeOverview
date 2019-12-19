@@ -26,3 +26,4 @@ class Crypto:
     def convertPassword(password):
         cryp = Crypto()
         return cryp.password2secret(password)
+
