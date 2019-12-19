@@ -38,7 +38,7 @@ class RegUser(db.Model,UserMixin):
         else:
             return False
 
-    def isInstructer(self):
+    def isInstructor(self):
         if(self.user_type == 1):
             return True
         else:

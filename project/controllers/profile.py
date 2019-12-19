@@ -12,6 +12,7 @@ def profile():
     userData = getUserData(current_user.user_id)
     return render_template('profile.html', user=userData, title='Profile')
 
+
 @app.route('/updateProfile', methods = ['GET', 'POST'])
 @login_required
 def profileUpdate():

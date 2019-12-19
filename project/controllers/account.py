@@ -9,7 +9,9 @@ from project.models.dbOperations import *
 #route login
 @app.route('/login', methods = ['GET', 'POST'])
 def Login():
-    index_data = []
+    if current_user.is_authenticated:
+        return(redirect(url_for('home')))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
@@ -19,7 +21,7 @@ def Login():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
 
-    return render_template('login.html',form=form, data=index_data, title='Login')
+    return render_template('login.html',form=form, title='Login')
 
 @app.route("/logout")
 def logout():
