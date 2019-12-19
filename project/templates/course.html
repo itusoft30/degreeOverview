@@ -65,7 +65,15 @@
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Prerequisite/s</div>
-              <div class="col"> {{ course.prerequisites }} </div>
+              <div class="col">
+                {% if course.prerequisites %}
+                  {% for prerequisite in course.prerequisites %}
+                    <a href="{{ url_for('course', course_id=prerequisite.course_id) }}">
+                      {{ prerequisite.name }} 
+                    </a>
+                  {% endfor %}
+                {% endif %}
+              </div>
             </li>
             <li class="list-group-item d-flex">
               <div class="col font-weight-bold">Outcome/s</div>

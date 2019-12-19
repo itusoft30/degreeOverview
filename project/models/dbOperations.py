@@ -66,6 +66,56 @@ def updateUserPassword(user_id, form):
     db.session.commit()                                                 # commit
     return
 
+def getPrerequisites(course_id):
+    prerequisite = []
+    requisite_ids = Prerequisite.query.filter_by(course_id=course_id)
+    for _id in requisite_ids:
+        requisite = {}
+        requisite['course_id'] = _id.requisite_id
+        requisite['name'] = Course.query.get_or_404(_id.requisite_id).course_code
+        prerequisite.append(requisite.copy())
+    return prerequisite
+
+def getPrerequisitesAsString(course_id):
+    prerequisite = ""
+    requisite_ids = Prerequisite.query.filter_by(course_id=course_id)
+    for _id in requisite_ids:
+        prerequisite += Course.query.get_or_404(_id.requisite_id).course_code
+        prerequisite += ", "
+    prerequisite = prerequisite[:-2]
+    return prerequisite
+
+
+def getOutcomes(course_id):
+    outcome = ""
+    outcome_ids = Course_Outcome.query.filter_by(course_id=course_id)
+    for _id in outcome_ids:
+        outcome += Outcome.query.get_or_404(_id.outcome_id).name
+        outcome += ", "
+    outcome = outcome[:-2]
+    return outcome
+
+
+def getAllCourses():
+    result_courses = []
+    courseData = {}
+    courses = Course.query.all()
+    for course in courses:
+        courseData['course_id'] = course.course_id
+        courseData['code'] = course.course_code
+        print(course.course_code)
+
+        prerequisites = getPrerequisitesAsString(course.course_id)
+        courseData['prerequisites'] = prerequisites
+        
+        outcomes = getOutcomes(course.course_id)
+        courseData['outcomes'] = outcomes
+
+        result_courses.append(courseData.copy())
+    for res in result_courses:
+        print(res)
+    return result_courses
+
    
 def getCourseData(course_id):
     courseData = {}
@@ -79,23 +129,10 @@ def getCourseData(course_id):
     courseData['crn'] = course.crn
     courseData['credit'] = course.credit
 
-    prerequisite = ""
-    requisite_ids = Prerequisite.query.filter_by(course_id=course_id)
-    for _id in requisite_ids:
-        prerequisite += Course.query.get_or_404(_id.requisite_id).course_code
-        prerequisite += ", "
-    prerequisite = prerequisite[:-2]
-    if len(prerequisite) == 0 :
-        prerequisite = "None"
+    prerequisite = getPrerequisites(course_id)
     courseData['prerequisites'] = prerequisite
 
-    outcome = ""
-    outcome_ids = Course_Outcome.query.filter_by(course_id=course_id)
-    for _id in outcome_ids:
-        outcome += Outcome.query.get_or_404(_id.outcome_id).name
-        outcome += ", "
-    outcome = outcome[:-2]
+    outcome = getOutcomes(course_id)
     courseData['outcomes'] = outcome
 
     return courseData
-

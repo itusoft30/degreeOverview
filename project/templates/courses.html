@@ -39,17 +39,17 @@
                 <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
                   <div class="col-3 p-0 font-weight-bold">{{ course.code }}</div>
                   <div class="col-5 p-0 pl-1">
-                  {% if course.prerequisites %}
-                    {% for prerequisite in course.prerequisites %}
-                      {{ prerequisite }},
-                    {% endfor %}
-                  {% endif %}
+                    {% if course.prerequisites %}
+                      {{ course.prerequisites }}
+                    {% else %}
+                      None
+                    {% endif %}
                   </div>
-                  <div class="col-3 p-0">                  
-                    {% if course.outcomes %}
-                      {% for outcome in course.outcomes %}
-                        {{ outcome }},
-                      {% endfor %}
+                  <div class="col-3 p-0">    
+                    {% if course.outcomes %}           
+                      {{ course.outcomes }}
+                    {% else %}
+                      None
                     {% endif %}
                   </div>
                 </a>
