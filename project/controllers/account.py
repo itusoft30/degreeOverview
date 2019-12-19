@@ -10,12 +10,12 @@ from flask_login import login_user,current_user,logout_user,login_required
 @app.route('/Login', methods = ['GET','POST'])
 def Login():
     if current_user.is_authenticated:
-        return(redirect(url_for('index')))
+        return(redirect(url_for('home')))
     index_data = []
     form = LoginForm()
     if form.validate_on_submit():
         user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
-        if user.user_id and Crypto.checkPassword(form.password.data, user.password):
+        if user and Crypto.checkPassword(form.password.data, user.password):
             print("girdi")
             login_user(user)
             return redirect(url_for('home'))
