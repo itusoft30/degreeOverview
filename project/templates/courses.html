@@ -28,7 +28,11 @@
 
   <div class="col-sm-8">
     <div class="container">
-      <h5>3 courses found</h5>
+      {% if courses_count > 1 %}
+        <h5>{{ courses_count }} courses were found</h5>
+      {% else %}
+        <h5>{{ courses_count }} course was found</h5>
+      {% endif %}
       <hr>
       <div class="list-group ">
         {% if courses %}

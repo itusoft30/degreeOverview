@@ -4,9 +4,8 @@ from project.models.dbOperations import *
 
 @app.route('/courses', methods = ['GET'])
 def courses():
-    courses = getAllCourses()
-    return render_template('courses.html', courses=courses)
-
+    courses, courses_count = getAllCourses()
+    return render_template('courses.html', courses=courses, courses_count=courses_count)
 
 @app.route("/course/<int:course_id>")
 def course(course_id):
