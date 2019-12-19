@@ -25,7 +25,7 @@ class RegUser(db.Model,UserMixin):
     password = db.Column(db.String(100), nullable=False)
     user_type = db.Column(db.Integer, default=0)
     department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'),nullable=False)
-    instructer = db.relationship('Instructor', backref='reguser', uselist=False)
+    instructor = db.relationship('Instructor', backref='reguser', uselist=False)
     student = db.relationship('Student', backref='reguser',uselist=False)
 
     def get_id(self):
@@ -55,7 +55,7 @@ class RegUser(db.Model,UserMixin):
 class Instructor(db.Model):
     __tablename__ = 'instructor'
     title = db.Column(db.String(50))
-    instructer_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False,primary_key=True)
+    instructor_id = db.Column(db.Integer, db.ForeignKey('reguser.user_id'), nullable=False,primary_key=True)
     courses = db.relationship('Course', backref='instructor', lazy=True)
 
     def __repr__(self):
@@ -79,7 +79,7 @@ class Course(db.Model):
     courseOutcomes = db.relationship('Course_Outcome', backref='course', lazy=True)
     grades = db.relationship('Student_Grade', backref='course', lazy=True)
 
-    instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructer_id'))
+    instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructor_id'))
 
     def __repr__(self):
         return f"department('{self.crn}', '{self.name}', '{self.course_code}', '{self.instructor_id}')"
