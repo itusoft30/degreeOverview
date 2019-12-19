@@ -3,8 +3,8 @@ from flask import render_template, redirect, url_for
 
 
 
-@app.route('/UpdateInstructorProfile', methods = ['GET'])
-def updateInstructor_Profile():
+@app.route('/instructors', methods = ['GET'])
+def instructors():
 
     instructorData = 0 # Use model method here to get data with id <instructorid>
 

@@ -4,7 +4,7 @@
 
     <div class="d-flex">
       <h5 class="col p-0 font-weight-bold">User Information</h5>
-      <a href="profileEditStud.html" class="cs-std-link float-right text-decoration-none">Edit</a>  
+      <a href="updateProfile" class="cs-std-link float-right text-decoration-none">Edit</a>  
     </div>
 
     <table class="table">
@@ -25,7 +25,7 @@
           {% if user.user_type == 'Instructor' %}
             <td class="font-weight-bold">Title</td>
           {% else %}
-            <td class="font-weight-bold">Student ID</td>
+            <td class="font-weight-bold">Student Number</td>
           {% endif %}
           <td> {{ user.private_info }} </td>
         </tr>
@@ -40,7 +40,7 @@
       </tbody>
     </table>
     
-    <a href="login.html" id="id-logout" class="btn float-right">Logout</a>  
+    <a href="logout" id="id-logout" class="btn float-right">Logout</a>  
     
 
   </div>

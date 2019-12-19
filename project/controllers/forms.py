@@ -21,8 +21,28 @@ class RegistrationForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "re-Password"})
     department = SelectField('Department:', validators=[DataRequired()], choices=[(dept.department_id, dept.department_name) for dept in Department.query], coerce= int, render_kw={"placeholder": "Department"})
     title = StringField('Title', validators=[Length(max=30)], render_kw={"placeholder": "Title"})
-    student_no = StringField('Student No', validators=[Length(max=30)], render_kw={"placeholder": "Student Number"})
+    student_no = StringField('Student No', validators=[Length(max=9)], render_kw={"placeholder": "Student Number"})
     submit = SubmitField('Sign Up')
+
+
+class InstructorProfileUpdateForm(FlaskForm):
+    name = StringField('Name:', validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder": "First Name"})
+    surname = StringField('Surname:', validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder": "Last Name"})
+    department = SelectField('Department:', validators=[DataRequired()], choices=[(dept.department_id, dept.department_name) for dept in Department.query], coerce= int, render_kw={"placeholder": "Department"})
+    private_info = StringField('Title', validators=[Length(max=30)], render_kw={"placeholder": "Title"})
+    submit = SubmitField('Update')
+
+class StudentProfileUpdateForm(FlaskForm):
+    name = StringField('Name:', validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder": "First Name"})
+    surname = StringField('Surname:', validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder": "Last Name"})
+    department = SelectField('Department:', validators=[DataRequired()], choices=[(dept.department_id, dept.department_name) for dept in Department.query], coerce= int, render_kw={"placeholder": "Department"})
+    private_info = StringField('Student Number', validators=[Length(max=9)], render_kw={"placeholder": "Student Number"})
+    submit = SubmitField('Update')
+
+class ChangePasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(),Length(min=5, max=10)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Change Password')
     
 
 class CourseRegistrationForm(FlaskForm):

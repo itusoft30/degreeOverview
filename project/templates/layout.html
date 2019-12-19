@@ -40,7 +40,7 @@
         {% else %}
           <li class="nav-item">
         {% endif %}
-          <a class="nav-link" href="Home">HOME</a>
+          <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
         </li>
 
         {% if title == 'courses' %}
@@ -48,7 +48,7 @@
         {% else %}
           <li class="nav-item">
         {% endif %}
-            <a class="nav-link" href="Courses">COURSES</a>
+            <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
         </li>
 
         {% if title == 'instructors' %}
@@ -56,7 +56,7 @@
         {% else %}
           <li class="nav-item">
         {% endif %}
-            <a class="nav-link" href="Instructors">INSTRUCTORS</a>
+            <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
         </li>
 
         {% if title == 'profile' %}
@@ -64,7 +64,7 @@
         {% else %}
           <li class="nav-item">
         {% endif %}
-            <a class="nav-link" href="Profile">PROFILE</a>
+            <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
         </li>    
 
       </ul>
