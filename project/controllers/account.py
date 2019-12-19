@@ -31,11 +31,14 @@ def logout():
 
 @app.route('/register', methods = ['GET','POST'])
 def Register():
+    if current_user.is_authenticated:
+        return(redirect(url_for('home')))
+        
     form = RegistrationForm()
     if form.validate_on_submit():
-        if register(form):
+        if registerDB(form):
             flash('Your account has been created! You are now able to login.', 'success')
-            return render_template('home.html', title='Home')
+            return redirect(url_for('home'))
         else:
             flash('The email is already taken.')
 

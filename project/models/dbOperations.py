@@ -4,7 +4,7 @@ from project.config.crypto import Crypto
 from project.config.Database import db
 
 
-def register(form):
+def registerDB(form):
     secret_password = Crypto.convertPassword(form.password.data)
     user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
     if not user:    # if the email is not taken, create the user
@@ -14,7 +14,9 @@ def register(form):
                 user_type=type, department_id=form.department.data)
         db.session.add(user)
         db.session.commit()
-        if type == 2:   # if new user is a instructor
+        if type == 1:   # if new user is a instructor
+            print(user.user_id)
+            print(form.title.data)
             instructor = Instructor(instructor_id=user.user_id, title=form.title.data)
             db.session.add(instructor)
             db.session.commit()
@@ -37,6 +39,7 @@ def getUserData(user_id):
     userData['department'] = Department.query.filter_by(department_id=user.department_id).first().department_name
 
     if user.user_type == 1 :
+        print(user.instructor.title)
         userData['private_info'] = user.instructor.title
     else:
         userData['private_info'] = user.student.id_number
@@ -100,10 +103,11 @@ def getAllCourses():
     result_courses = []
     courseData = {}
     courses = Course.query.all()
+
     for course in courses:
+        print(course.course_id)
         courseData['course_id'] = course.course_id
         courseData['code'] = course.course_code
-        print(course.course_code)
 
         prerequisites = getPrerequisitesAsString(course.course_id)
         courseData['prerequisites'] = prerequisites
@@ -112,9 +116,11 @@ def getAllCourses():
         courseData['outcomes'] = outcomes
 
         result_courses.append(courseData.copy())
-    for res in result_courses:
-        print(res)
-    return result_courses
+    return result_courses, len(courses)
+
+def getInstructorFullName(instructor_id):
+    return '%s %s' % (RegUser.query.filter_by(user_id=instructor_id).first().name, 
+                                        RegUser.query.filter_by(user_id=instructor_id).first().surname)
 
    
 def getCourseData(course_id):
@@ -123,16 +129,47 @@ def getCourseData(course_id):
     courseData['course_code'] = course.course_code
     courseData['course_name'] = course.name
     courseData['department'] = Department.query.filter_by(department_id=course.department_id).first().department_name
-    instructor_fullname = '%s %s' % (RegUser.query.filter_by(user_id=course.instructor_id).first().name, 
-                                        RegUser.query.filter_by(user_id=course.instructor_id).first().surname)
-    courseData['instructor'] = instructor_fullname
+    courseData['instructor'] = getInstructorFullName(course.instructor_id)
     courseData['crn'] = course.crn
     courseData['credit'] = course.credit
-
-    prerequisite = getPrerequisites(course_id)
-    courseData['prerequisites'] = prerequisite
-
-    outcome = getOutcomes(course_id)
-    courseData['outcomes'] = outcome
+    courseData['prerequisites'] = getPrerequisites(course_id)
+    courseData['outcomes'] = getOutcomes(course_id)
 
     return courseData
+
+
+def getAllInstructors():
+    result_instructors = []
+    instructorData = {}
+    instructors = Instructor.query.all()
+    for instructor in instructors:
+        instructorData['instructor_id'] = instructor.instructor_id
+        instructorData['name'] = getInstructorFullName(instructor.instructor_id)
+        department_id = RegUser.query.filter_by(user_id=instructor.instructor_id).first().department_id
+        instructorData['faculty'] = Department.query.filter_by(department_id=department_id).first().faculty_name
+
+        result_instructors.append(instructorData.copy())
+
+    return result_instructors, len(instructors)
+
+def getInstructorData(instructor_id):
+    instructorData = {}
+    instructor = Instructor.query.get_or_404(instructor_id)
+    instructorData['name'] = getInstructorFullName(instructor_id)
+    instructorData['title'] = instructor.title
+    userData = RegUser.query.get_or_404(instructor_id)
+    instructorData['email'] = userData.email
+    instructorData['department'] = Department.query.filter_by(department_id=userData.department_id).first().department_name
+    courseData = {}
+    final_courses = []
+    for course in instructor.courses:
+        courseData['code'] = course.course_code
+        courseData['prerequisites'] = getPrerequisites(course.course_id)
+        courseData['outcomes'] = getOutcomes(course.course_id)
+
+        final_courses.append(courseData.copy())
+
+    instructorData['courses'] = final_courses
+    instructorData['course_count'] = len(instructor.courses)
+
+    return instructorData
