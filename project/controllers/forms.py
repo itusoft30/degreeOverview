@@ -55,6 +55,21 @@ class CourseRegistrationForm(FlaskForm):
     outcomes = SelectMultipleField('Outcome/s:', choices=[(out.outcome_id, out.name) for out in Outcome.query], coerce= int)
     submit = SubmitField('Add')
 
+class OutcomeRegistrationForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(max=30)])
+    submit = SubmitField('Add')
+
+class StudentGradeForm(FlaskForm):
+    aa = SubmitField('AA')
+    ba = SubmitField('BA')
+    bb = SubmitField('BB')
+    cb = SubmitField('CB')
+    cc = SubmitField('CC')
+    dc = SubmitField('DC')
+    dd = SubmitField('DD')
+    vf = SubmitField('VF')
+    ff = SubmitField('FF')
+
 class InstructorUpdateProfileForm(FlaskForm):
     name = StringField('Name:', validators=[DataRequired(), Length(min=2, max=30)])
     surname = StringField('Surname:', validators=[DataRequired(), Length(min=2, max=30)])

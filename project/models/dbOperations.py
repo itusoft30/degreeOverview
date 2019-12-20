@@ -49,6 +49,16 @@ def registerCourse(form, user_id):
         print("The CRN is already taken.")
         return False
 
+def registerOutcome(form):
+    outcome = Outcome.query.filter_by(name=form.name.data).first()
+    if not outcome:
+        outcome = Outcome(name=form.name.data)
+        db.session.add(outcome)
+        db.session.commit()
+    else:
+        print("Outcome already exists.")
+        return False
+
 
 def getUserData(user_id):
     userData = {}
@@ -194,3 +204,21 @@ def getInstructorData(instructor_id):
     instructorData['course_count'] = len(instructor.courses)
 
     return instructorData
+
+def getStudentGrade(user_id, course_id):
+    studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
+    if studentGrade is None:
+        return None
+    else:
+        return studentGrade.grade
+
+def addStudentGrade(user_id, course_id, grade):
+    studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
+    if not studentGrade:
+        studentGrade = Student_Grade(student_id=user_id, course_id=course_id, grade=grade)
+        db.session.add(studentGrade)
+    else:
+        print(grade)
+        studentGrade.grade = grade
+    db.session.commit()
+    return

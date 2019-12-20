@@ -89,19 +89,123 @@
               <div class="col font-weight-bold">Credit</div>
               <div class="col"><span class="badge badge-primary badge-pill">{{ course.credit }}</span></div>
             </li>
+            <form method="POST" action="" >
             <li class="list-group-item text-center">
+              {{ form.hidden_tag() }}
               <div class="btn-group btn-group-lg p-2">
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">AA</button>
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">BA</button>
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">BB</button>
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">CB</button>
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">CC</button>
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">DC</button>
-                <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">DD</button>
-                <button type="button" class="btn btn-outline-danger font-weight-bold btn-sm">FF</button>
-                <button type="button" class="btn btn-outline-dark font-weight-bold btn-sm">VF</button>
+                {% if student_grade == '-' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'AA' %}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">AA</button>
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'BA' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">BA</button>
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'BB' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">BB</button>
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'CB' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">CB</button>
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'CC' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">CC</button>
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'DC' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">DC</button>
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'DD' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">DD</button>
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'VF' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-outline-dark font-weight-bold btn-sm">VF</button>
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'FF' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-outline-danger font-weight-bold btn-sm">FF</button>
+                {% endif %}
               </div>
             </li>
+          </form>
           </ul>
 
         </div>
