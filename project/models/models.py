@@ -69,7 +69,7 @@ class Student(db.Model):
     grades = db.relationship('Student_Grade', backref='student', lazy=True)
 
     def __repr__(self):
-        return f"department('{self.id_number}')"
+        return f"student('{self.id_number}')"
 
 class Course(db.Model):
     __tablename__ = 'course'
@@ -85,7 +85,7 @@ class Course(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'))
 
     def __repr__(self):
-        return f"department('{self.crn}', '{self.name}', '{self.course_code}', '{self.instructor_id}')"
+        return f"course('{self.crn}', '{self.name}', '{self.course_code}', '{self.instructor_id}')"
 
 class Outcome(db.Model):
     __tablename__ = 'outcome'
@@ -93,7 +93,7 @@ class Outcome(db.Model):
     name = db.Column(db.String(30))
     courseOutcomes = db.relationship('Course_Outcome', backref='outcome', lazy=True)
     def __repr__(self):
-        return f"department('{self.name}')"
+        return f"outcome('{self.name}')"
 
 class Course_Outcome(db.Model):
     __tablename__ = 'course_outcome'
@@ -102,7 +102,7 @@ class Course_Outcome(db.Model):
     outcome_id = db.Column(db.Integer, db.ForeignKey('outcome.outcome_id'))
 
     def __repr__(self):
-        return f"department('{self.course_id}', '{self.outcome_id}')"
+        return f"course_outcome('{self.course_id}', '{self.outcome_id}')"
 
 class Prerequisite(db.Model):
     __tablename__ = 'prerequisite'
@@ -113,7 +113,7 @@ class Prerequisite(db.Model):
     requisite = db.relationship("Course", foreign_keys=[requisite_id])
 
     def __repr__(self):
-        return f"department('{self.course_id}', '{self.requisite_id}')"
+        return f"prerequisite('{self.course_id}', '{self.requisite_id}')"
 
 class Student_Grade(db.Model):
     __tablename__ = 'student_grade'
@@ -123,4 +123,4 @@ class Student_Grade(db.Model):
     grade = db.Column(db.String(2))
 
     def __repr__(self):
-        return f"department('{self.student_id}', '{self.course_id}','{self.grade}')"
+        return f"student_grade('{self.student_id}', '{self.course_id}','{self.grade}')"

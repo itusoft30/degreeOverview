@@ -4,7 +4,7 @@ from project.config.crypto import Crypto
 from project.config.Database import db
 
 
-def registerDB(form):
+def registerUser(form):
     secret_password = Crypto.convertPassword(form.password.data)
     user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
     if not user:    # if the email is not taken, create the user
@@ -27,6 +27,36 @@ def registerDB(form):
         return True
     else:
         print("The email is already taken.")
+        return False
+
+def registerCourse(form, user_id):
+    course = Course.query.filter_by(crn=form.crn.data).first()
+    if not course:
+        course = Course(crn=form.crn.data, name=form.name.data, course_code=form.course_code.data,
+                        credit=form.credit.data, department_id=form.department.data, instructor_id=user_id)
+        db.session.add(course)
+        db.session.commit()
+        for id in form.prerequisites.data:      # adding all the prerequisites
+            prerequisite = Prerequisite(course_id=course.course_id, requsite_id=id)
+            db.session.add(prerequisite)
+            de.session.commit()
+        for outcome_id in form.outcomes.data:   # adding all the outcomes
+            course_outcome = Course_Outcome(course_id=course.course_id, outcome_id=outcome_id)
+            db.session.add(course_outcome)
+            db.session.commit()
+        return True
+    else:
+        print("The CRN is already taken.")
+        return False
+
+def registerOutcome(form):
+    outcome = Outcome.query.filter_by(name=form.name.data).first()
+    if not outcome:
+        outcome = Outcome(name=form.name.data)
+        db.session.add(outcome)
+        db.session.commit()
+    else:
+        print("Outcome already exists.")
         return False
 
 
@@ -174,3 +204,21 @@ def getInstructorData(instructor_id):
     instructorData['course_count'] = len(instructor.courses)
 
     return instructorData
+
+def getStudentGrade(user_id, course_id):
+    studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
+    if studentGrade is None:
+        return None
+    else:
+        return studentGrade.grade
+
+def addStudentGrade(user_id, course_id, grade):
+    studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
+    if not studentGrade:
+        studentGrade = Student_Grade(student_id=user_id, course_id=course_id, grade=grade)
+        db.session.add(studentGrade)
+    else:
+        print(grade)
+        studentGrade.grade = grade
+    db.session.commit()
+    return

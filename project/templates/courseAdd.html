@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>BLG 105E</title>
+  <title> {{ title }} </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,23 +50,39 @@
           <hr>
         </div>
 
-        <form action="/action_page.php">
-
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
           <div class="form-group input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">Course</span>
+              <span class="input-group-text">{{ form.name.label.text }}</span>
             </div>
-            <input type="text" class="form-control bg-light" placeholder="Code; ex: BLG 212E">
-            <input type="text" class="form-control bg-light" placeholder="Name">
+            {% if form.name.errors %}
+              {{ form.name(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.name.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.name(class="form-control bg-light") }}
+            {% endif %}
+            <div class="input-group-prepend">
+              <span class="input-group-text">{{ form.course_code.label.text }}</span>
+            </div>
+            {% if form.course_code.errors %}
+              {{ form.course_code(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.course_code.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.course_code(class="form-control bg-light") }}
+            {% endif %}
           </div>
 
           <div class="form-group">
-            <select name="soft-department" class="custom-select bg-light">
-              <option >Department</option>
-              <option selected value="COEN">Computer Engineering</option>
-              <option value="ECEN">Electronics and Communication Engineering</option>
-              <option value="ARCH">Architecture</option>
-            </select>
+            {{ form.department(class="form-group custom-select bg-ligh") }}
           </div>
 
           <div class="form-group d-flex">
@@ -74,39 +90,49 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">CRN</span>
               </div>
-              <input type="text" class="form-control bg-light" placeholder="ex: 12447">
+              {% if form.crn.errors %}
+                {{ form.crn(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.crn.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+              {% else %}
+                {{ form.crn(class="form-control bg-light") }}
+              {% endif %}
             </div>
 
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Credit</span>
               </div>
-              <input type="text" class="form-control bg-light" placeholder="ex: 4.0">
+              {% if form.credit.errors %}
+                {{ form.credit(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.credit.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+              {% else %}
+                {{ form.credit(class="form-control bg-light") }}
+              {% endif %}
             </div>
           </div>
 
           <div class="form-group d-flex">
             <div class="pr-2 p-0 col">
               <label for="sel2"><kbd>Outcome/s</kbd></label>
-              <select multiple class="form-control" id="sel2" name="sellist2">
-                <option>C Programming</option>
-                <option>Software Developing</option>
-                <option>Team Working</option>
-              </select>
+              {{ form.outcomes(class="form-control") }}
             </div>
 
             <div class="col p-0">
                 <label for="sel2"><kbd>Prerequisite/s</kbd></label>
-                <select multiple class="form-control" id="sel2" name="sellist2">
-                  <option>BLG 252E</option>
-                  <option>BLG 351E</option>
-                  <option>BLG 411E</option>
-                </select>
+                {{ form.prerequisites(class="form-control") }}
             </div>
           </div>
 
           <div class="form-group form-check pl-0 float-right">
-            <button type="submit" class="cs-std-link">Add</button>
+            {{ form.submit(class="cs-std-link") }}
           </div>
         </form>
   

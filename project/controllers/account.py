@@ -36,7 +36,7 @@ def Register():
         
     form = RegistrationForm()
     if form.validate_on_submit():
-        if registerDB(form):
+        if registerUser(form):
             flash('Your account has been created! You are now able to login.', 'success')
             return redirect(url_for('home'))
         else:
