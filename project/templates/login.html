@@ -1,86 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Login</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css')}}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <!-- FOR ICONS -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  <!-- FOR JQUERY -->
-
-</head>
-
-<body id="idBody-Login">
-
-  <nav id ="id-navbar" class="navbar navbar-expand-sm fixed-top ">
-    <div class="navbar-collapse justify-content-center">
-        <div class=" font-weight-bold">
-            <a class="nav-link" href="home">HOME</a>
-        </div>  
-    </div>  
-  </nav>
-
-  <div id="id-main" class="container">
-    <div class="row justify-content-center">
-
-      <div class=" d-flex flex-column">
-        <form method="POST" action="" >
-          {{ form.hidden_tag() }}
-          <div class="form-group">
-            <div class="input-group mb-3">
-              {% if form.email.errors %}
-                {{ form.email(class="form-control bg-light") }}
-                <div class="invalid-feedback">
-                {% for error in form.email.errors %}
-                  <span>{{ error }}</span>
-                {% endfor %}
-                </div>
-              {% else %}
-                {{ form.email(class="form-control form-control-lg") }}
-              {% endif %}
-              <div class="input-group-append"><span class="input-group-text">@itu.edu.tr</span></div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            {% if form.password.errors %}
-            {{ form.password(class="form-control bg-light") }}
-            <div class="invalid-feedback">
-              {% for error in form.password.errors %}
+{% extends "layout.html" %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class=" d-flex flex-column">
+      <form method="POST" action="" >
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          <div class="input-group mb-3">
+            {% if form.email.errors %}
+              {{ form.email(class="form-control bg-light") }}
+              <div class="invalid-feedback">
+              {% for error in form.email.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
-            </div>
+              </div>
             {% else %}
-              {{ form.password(class="form-control form-control-lg") }}
+              {{ form.email(class="form-control form-control-lg ") }}
             {% endif %}
+            <div class="input-group-append"><span class="input-group-text">@itu.edu.tr</span></div>
           </div>
+        </div>
 
-          <div class="form-group form-check pl-0">
-            {{ form.submit(class="cs-std-link") }}
+        <div class="form-group">
+          {% if form.password.errors %}
+          {{ form.password(class="form-control bg-light") }}
+          <div class="invalid-feedback">
+            {% for error in form.password.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
           </div>
-        </form>  
-        <table class="table table-sm text-center">
-          <tr><td><a href="{{ url_for('Register') }}" class="text-decoration-none">Register</a></td></tr>
-          <tr><td><a href="#" class="text-decoration-none">Forgot anything?</a></td></tr>
-        </table> 
-      </div>
-      
+          {% else %}
+            {{ form.password(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+
+        <div class="form-group form-check pl-0">
+          {{ form.submit(class="cs-std-link") }}
+        </div>
+      </form>  
+      <table class="table table-sm text-center">
+        <tr><td><a href="{{ url_for('Register') }}" class="text-decoration-none">Register</a></td></tr>
+        <tr><td><a href="#" class="text-decoration-none">Forgot anything?</a></td></tr>
+      </table> 
     </div>
   </div>
-  
-
-
-  
-  <div class="cs-footer">
-    <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>
-  </div>
-
-    
-</body>
-</html>
+{% endblock content%}
