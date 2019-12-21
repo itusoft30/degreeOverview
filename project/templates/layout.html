@@ -27,62 +27,66 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
-<body >
+<body>
 
   <nav id ="id-navbar" class="navbar navbar-expand-sm fixed-top ">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-      <ul class="navbar-nav font-weight-bold">
-        {% if title == 'home' %}
-          <li class="nav-item soft-active">
-        {% else %}
-          <li class="nav-item">
-        {% endif %}
-          <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
-        </li>
+    {% if title == 'Register' %}
+      <div class="navbar-collapse justify-content-center font-weight-bold">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </div>
+    {% else %}
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+        <ul class="navbar-nav font-weight-bold">
+          {% if title == 'Home' %}
+            <li class="nav-item soft-active">
+          {% else %}
+            <li class="nav-item">
+          {% endif %}
+            <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+          </li>
 
-        {% if title == 'courses' %}
-          <li class="nav-item soft-active">
-        {% else %}
-          <li class="nav-item">
-        {% endif %}
-            <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
-        </li>
+          {% if title == 'Courses' %}
+            <li class="nav-item soft-active">
+          {% else %}
+            <li class="nav-item">
+          {% endif %}
+              <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
+          </li>
 
-        {% if title == 'instructors' %}
-          <li class="nav-item soft-active">
-        {% else %}
-          <li class="nav-item">
-        {% endif %}
-            <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
-        </li>
+          {% if title == 'Instructors' %}
+            <li class="nav-item soft-active">
+          {% else %}
+            <li class="nav-item">
+          {% endif %}
+              <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
+          </li>
 
-        {% if title == 'profile' %}
-          <li class="nav-item soft-active">
-        {% else %}
-          <li class="nav-item">
-        {% endif %}
-            <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
-        </li>    
+          {% if title == 'Profile' %}
+            <li class="nav-item soft-active">
+          {% else %}
+            <li class="nav-item">
+          {% endif %}
+              <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+          </li>    
 
-      </ul>
-    </div>  
+        </ul>
+      </div>
+    {% endif %}
   </nav>
 
 
   <div id="id-main" class="container mb-4">
-    <div class="row justify-content-center">
 
       {% block content %}{% endblock %}
       
-    </div>
   </div>
 
 
   <div class="cs-footer">
-    <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>
+    <p>Copyright © 2019, All Rights Reserved</p>
   </div>
 
 

@@ -1,98 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title> {{ course.course_name }} </title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "layout.html" %}
+{% block content %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-7">
 
-  <link rel="stylesheet" type="text/css" href="style/style.css" />
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css')}}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <!-- FOR ICONS -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"> 
-
-</head>
-  
-<body >
-  
-  <nav id ="id-navbar" class="navbar navbar-expand-sm  navbar-dark fixed-top ">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-        <ul class="navbar-nav font-weight-bold">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
-        </li>
-        <li class="nav-item soft-active">
-            <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
-        </li>    
-        </ul>
-    </div>  
-  </nav>
-
-
-  <div id="id-main" class="container mb-4">
-    <div class="row justify-content-center mt-5">
-
-
-
-      <div class="col-7">
-        <div class="container">
-
-
-          <ul class="list-group">
-            <li class="list-group-item d-flex active">
-              <div class="col font-weight-bold display-5"> {{ course.course_code }} </div>
-              <div class="col font-weight-bold">{{ course.course_name }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-              <div class="col font-weight-bold">Department</div>
-              <div class="col"> {{ course.department}} </div>
-            </li>
-            <li class="list-group-item d-flex">
-              <div class="col font-weight-bold">Lecturer</div>
-              <div class="col">{{ course.instructor }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-              <div class="col font-weight-bold">Prerequisite/s</div>
-              <div class="col">
-                {% if course.prerequisites %}
-                  {% for prerequisite in course.prerequisites %}
-                    <a href="{{ url_for('course', course_id=prerequisite.course_id) }}">
-                      {{ prerequisite.name }} 
-                    </a>
-                  {% endfor %}
-                {% else %}
-                  None
-                {% endif %}
-              </div>
-            </li>
-            <li class="list-group-item d-flex">
-              <div class="col font-weight-bold">Outcome/s</div>
-              <div class="col">{{ course.outcomes }}  </div>
-            </li>
-            <li class="list-group-item d-flex">
-              <div class="col font-weight-bold">CRN</div>
-              <div class="col"><span class="badge badge-primary badge-pill">{{ course.crn }}</span></div>
-            </li>
-            <li class="list-group-item d-flex">
-              <div class="col font-weight-bold">Credit</div>
-              <div class="col"><span class="badge badge-primary badge-pill">{{ course.credit }}</span></div>
-            </li>
+        <ul class="list-group">
+          <li class="list-group-item d-flex active">
+            <div class="col font-weight-bold display-5"> {{ course.course_code }} </div>
+            <div class="col font-weight-bold">{{ course.course_name }}</div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Department</div>
+            <div class="col"> {{ course.department}} </div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Lecturer</div>
+            <div class="col">{{ course.instructor }}</div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Prerequisite/s</div>
+            <div class="col">
+              {% if course.prerequisites %}
+                {% for prerequisite in course.prerequisites %}
+                  <a href="{{ url_for('course', course_id=prerequisite.course_id) }}">
+                    {{ prerequisite.name }} 
+                  </a>
+                {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+            </div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Outcome/s</div>
+            <div class="col">{{ course.outcomes }}  </div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">CRN</div>
+            <div class="col"><span class="badge badge-primary badge-pill">{{ course.crn }}</span></div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Credit</div>
+            <div class="col"><span class="badge badge-primary badge-pill">{{ course.credit }}</span></div>
+          </li>
+          <li class="list-group-item text-center">
             <form method="POST" action="" >
-            <li class="list-group-item text-center">
+            
               {{ form.hidden_tag() }}
-              <div class="btn-group btn-group-lg p-2">
+              <div class="btn-group btn-group p-2">
                 {% if student_grade == '-' %}
                   {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                   {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
@@ -204,20 +158,11 @@
                   <button type="button" class="btn btn-outline-danger font-weight-bold btn-sm">FF</button>
                 {% endif %}
               </div>
-            </li>
-          </form>
-          </ul>
-
-        </div>
-      </div>
+            
+            </form>
+          </li>
+        </ul>
 
     </div>
   </div>
-
-
-  <div class="cs-footer">
-    <p>Copyright © 2019, All Rights Reserved, Nurdy Games</p>
-  </div>
-
-</body>
-</html>
+{% endblock content%}
