@@ -6,3 +6,8 @@
 /.vs/degreeOverview/v15
 /.vs
 *.pyc
+.xml
+.iml
+/.idea/
+/.idea/workspace.xml
+/.idea/
