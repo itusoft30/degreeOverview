@@ -4,7 +4,6 @@ from flask_login import login_required,current_user
 from project.models.dbOperations import *
 
 
-
 @app.route('/instructors', methods = ['GET'])
 def instructors():
     instructors, instructor_count = getAllInstructors()

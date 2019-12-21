@@ -46,6 +46,36 @@ def registerCourse(form, user_id):
     else:
         return False
 
+
+
+def updateCourseData(course_id, form):
+    course = Course.query.filter_by(crn=form.crn.data).first()
+    updated_course = Course.query.get_or_404(course_id)
+    if course:
+        print("CRN is already taken.")
+        return False
+    updated_course.crn = form.crn.data
+    updated_course.name = form.name.data
+    updated_course.course_code = form.course_code.data
+    updated_course.credit = form.credit.data
+    updated_course.department_id = form.department.data
+
+
+    Course_Outcome.query.filter_by(course_id=course_id).delete()
+    Prerequisite.query.filter_by(course_id=course_id).delete()
+
+    for id in form.prerequisites.data:  # adding all the prerequisites
+        prerequisite = Prerequisite(course_id=updated_course.course_id, requisite_id=id)
+        db.session.add(prerequisite)
+    for outcome_id in form.outcomes.data:  # adding all the outcomes
+        course_outcome = Course_Outcome(course_id=updated_course.course_id, outcome_id=outcome_id)
+        db.session.add(course_outcome)
+
+    db.session.commit()
+    return True
+
+
+
 def deleteCourse(course_id):
     course = Course.query.get_or_404(course_id)
     if not course:
@@ -54,6 +84,7 @@ def deleteCourse(course_id):
         db.session.delete(course)
         db.session.commit()
     return True
+
 
 def registerOutcome(form):
     outcome = Outcome.query.filter_by(name=form.name.data).first()
@@ -167,12 +198,34 @@ def getCourseData(course_id):
     courseData['course_name'] = course.name
     courseData['department'] = Department.query.filter_by(department_id=course.department_id).first().department_name
     courseData['instructor'] = getInstructorFullName(course.instructor_id)
+    courseData['insturctorId'] = course.instructor_id
     courseData['crn'] = course.crn
     courseData['credit'] = course.credit
     courseData['prerequisites'] = getPrerequisites(course_id)
     courseData['outcomes'] = getOutcomes(course_id)
 
     return courseData
+
+def getCourse(course_id):
+    return Course.query.get_or_404(course_id)
+
+
+def getPrerequisitesIds(course_id):
+    prerequisites = Prerequisite.query.filter_by(course_id=course_id)
+    prerequisite_ids = []
+    for _id in prerequisites:
+        prerequisite_ids.append((_id.requisite_id))
+
+    return prerequisite_ids
+
+
+def getOutcomeIds(course_id):
+    outcomes = Course_Outcome.query.filter_by(course_id=course_id)
+    outcome_ids = []
+    for _id in outcomes:
+        outcome_ids.append((_id.outcome_id))
+
+    return outcome_ids
 
 
 def getInstructorIdForACourse(course_id):
@@ -233,7 +286,6 @@ def addStudentGrade(user_id, course_id, grade):
         studentGrade.grade = grade
     db.session.commit()
     return
-
 
 def deleteGradeDB(user_id, course_id):
     studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
