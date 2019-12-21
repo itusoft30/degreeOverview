@@ -43,3 +43,14 @@ def Register():
             flash('The email is already taken.')
 
     return render_template('register.html', form=form, title='Register')
+
+
+@app.route("/deleteAccount/<int:user_id>")
+def deleteAccount(user_id):
+    if current_user.isAdmin():
+        if deleteUserDB(user_id):
+            flash("User has been deleted.")
+    else:
+        if deleteUserDB(current_user.user_id):
+            flash("Your account has been deleted.")
+    return redirect(url_for('home'))

@@ -26,8 +26,8 @@ class RegUser(db.Model,UserMixin):
     password = db.Column(db.String(100), nullable=False)
     user_type = db.Column(db.Integer, default=0)
     department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'),nullable=False)
-    instructor = db.relationship('Instructor', backref='reguser', uselist=False)
-    student = db.relationship('Student', backref='reguser', uselist=False)
+    instructor = db.relationship('Instructor', backref='reguser', single_parent=True, cascade="all, delete-orphan", uselist=False)
+    student = db.relationship('Student', backref='reguser', single_parent=True, cascade="all, delete-orphan", uselist=False)
 
     def get_id(self):
         return (self.user_id)

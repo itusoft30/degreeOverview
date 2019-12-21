@@ -57,9 +57,9 @@ def outcomeAdd():
     if form.validate_on_submit():
         if registerOutcome(form):
             flash('New outcome has been created!', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('home'))
         else:
-            flash('The email is already taken.')
+            flash('The outcome already exists.')
     return render_template('outcomeAdd.html', form=form, title='Add a new outcome')
 
 def GradeSetup(course_id):
