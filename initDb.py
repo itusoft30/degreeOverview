@@ -104,7 +104,7 @@ INIT_STATEMENTS = [
     VALUES ('Molecular Biology and Genetics', 'Faculty of Science and Letters');
     
     INSERT INTO REGUSER (Name, Surname, Email, Password, User_type) 
-    VALUES ('admin','admin','admin@gmail.com', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
+    VALUES ('admin','admin','admin@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', 0);
     INSERT INTO REGUSER (Name, Surname, Email, Password, Department_ID, User_type) 
     VALUES ('Iskender','Akyuz','akyuzi15@itu.edu.tr', 'gAAAAABd9BaEELg95qbxr7i1H-bnoUGyjGnEBYjAnVOpXEZFvwCdUoDzPuIgny3W1ou9JwwiR-WeIv0YgPU21OKI7T2Tg5wgCA==', (select Department_ID from DEPARTMENT where DEPARTMENT.Department_Name='Computer Engineering'), 2);
     INSERT INTO STUDENT (Student_ID, Id_Number) 
