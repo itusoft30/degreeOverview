@@ -37,7 +37,7 @@ def registerCourse(form, user_id):
         db.session.add(course)
         db.session.commit()
         for id in form.prerequisites.data:      # adding all the prerequisites
-            prerequisite = Prerequisite(course_id=course.course_id, requsite_id=id)
+            prerequisite = Prerequisite(course_id=course.course_id, requisite_id=id)
             db.session.add(prerequisite)
             db.session.commit()
         for outcome_id in form.outcomes.data:   # adding all the outcomes
