@@ -8,10 +8,12 @@ from project.controllers.forms import CourseRegistrationForm, OutcomeRegistratio
 def courses():
     courses, courses_count = getAllCourses()
     form = StudentGradeForm()
+
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
-        GradeFormManager(form, current_user.user_id, course_id)
+        GradeFormManager(form, current_user.user_id, request.form['course'])
+        return redirect(url_for(courses))
     return render_template('courses.html', courses=courses, form=form, courses_count=courses_count, title='Courses')
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
@@ -23,6 +25,7 @@ def course(course_id):
         if course['insturctorId'] == current_user.user_id:
             editable = True
     form = StudentGradeForm()
+
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
