@@ -4,40 +4,29 @@ from project.models.dbOperations import *
 from flask_login import login_required, current_user
 from project.controllers.forms import CourseRegistrationForm, OutcomeRegistrationForm, StudentGradeForm,CourseUpdateForm
 
-@app.route('/courses', methods = ['GET'])
+@app.route('/courses', methods = ['GET', 'POST'])
 def courses():
     courses, courses_count = getAllCourses()
-    return render_template('courses.html', courses=courses, courses_count=courses_count, title='Courses')
+    form = StudentGradeForm()
+    if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            return redirect(url_for('Login'))
+        GradeFormManager(form, current_user.user_id, course_id)
+    return render_template('courses.html', courses=courses, form=form, courses_count=courses_count, title='Courses')
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
 def course(course_id):
     editable = False
     course = getCourseData(course_id)
     studentGrade = GradeSetup(course_id)
-    if course['insturctorId'] == current_user.user_id:
-        editable = True
+    if current_user.is_authenticated:
+        if course['insturctorId'] == current_user.user_id:
+            editable = True
     form = StudentGradeForm()
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
-        if form.aa.data:
-            addStudentGrade(current_user.user_id, course_id, 'AA')
-        elif form.ba.data:
-            addStudentGrade(current_user.user_id, course_id, 'BA')
-        elif form.bb.data:
-            addStudentGrade(current_user.user_id, course_id, 'BB')
-        elif form.cb.data:
-            addStudentGrade(current_user.user_id, course_id, 'CB')
-        elif form.cc.data:
-            addStudentGrade(current_user.user_id, course_id, 'CC')
-        elif form.dc.data:
-            addStudentGrade(current_user.user_id, course_id, 'DC')
-        elif form.dd.data:
-            addStudentGrade(current_user.user_id, course_id, 'DD')
-        elif form.vf.data:
-            addStudentGrade(current_user.user_id, course_id, 'VF')
-        elif form.ff.data:
-            addStudentGrade(current_user.user_id, course_id, 'FF')
+        GradeFormManager(form, current_user.user_id, course_id)
 
     return render_template('course.html',edit = editable,form=form, course=course,course_id=course_id,student_grade=studentGrade)
 
@@ -103,3 +92,24 @@ def GradeSetup(course_id):
             studentGrade = '-'
     print(studentGrade)
     return studentGrade
+
+def GradeFormManager(form, user_id, course_id):
+    if form.aa.data:
+        addStudentGrade(user_id, course_id, 'AA')
+    elif form.ba.data:
+        addStudentGrade(user_id, course_id, 'BA')
+    elif form.bb.data:
+        addStudentGrade(user_id, course_id, 'BB')
+    elif form.cb.data:
+        addStudentGrade(user_id, course_id, 'CB')
+    elif form.cc.data:
+        addStudentGrade(user_id, course_id, 'CC')
+    elif form.dc.data:
+        addStudentGrade(user_id, course_id, 'DC')
+    elif form.dd.data:
+        addStudentGrade(user_id, course_id, 'DD')
+    elif form.vf.data:
+        addStudentGrade(user_id, course_id, 'VF')
+    elif form.ff.data:
+        addStudentGrade(user_id, course_id, 'FF')
+    return redirect(url_for('course', course_id=course_id))

@@ -66,17 +66,20 @@
                     </div>
                   </div>
                   <div id="{{ course.code }}" class="collapse" data-parent="#accordion">
-                    <div class="card-body btn-group btn-group float-right pt-2">
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">AA</button>
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">BA</button>
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">BB</button>
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">CB</button>
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">CC</button>
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">DC</button>
-                        <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">DD</button>
-                        <button type="button" class="btn btn-outline-danger font-weight-bold btn-sm">FF</button>
-                        <button type="button" class="btn btn-outline-dark font-weight-bold btn-sm">VF</button>                
-                    </div>
+                    <form method="POST" action="">
+                      {{ form.hidden_tag() }}
+                      <div class="card-body btn-group btn-group float-right pt-2">
+                          {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                          {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                      </div>
+                    </form>
                   </div>
 
               </div>
