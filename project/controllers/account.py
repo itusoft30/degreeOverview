@@ -15,7 +15,7 @@ def Login():
     form = LoginForm()
     if form.validate_on_submit():
         user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
-        if user.user_id and Crypto.checkPassword(form.password.data, user.password):
+        if user and Crypto.checkPassword(form.password.data, user.password):
             login_user(user)
             return redirect(url_for('home'))
         else:

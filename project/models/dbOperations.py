@@ -44,8 +44,16 @@ def registerCourse(form, user_id):
             db.session.commit()
         return True
     else:
-        print("The CRN is already taken.")
         return False
+
+def deleteCourse(course_id):
+    course = Course.query.get_or_404(course_id)
+    if not course:
+        return False
+    else:
+        db.session.delete(course)
+        db.session.commit()
+    return True
 
 def registerOutcome(form):
     outcome = Outcome.query.filter_by(name=form.name.data).first()
@@ -55,7 +63,6 @@ def registerOutcome(form):
         db.session.commit()
         return True
     else:
-        print("Outcome already exists")
         return False
 
 
@@ -166,6 +173,10 @@ def getCourseData(course_id):
     return courseData
 
 
+def getInstructorIdForACourse(course_id):
+    return Course.query.get_or_404(course_id).instructor_id
+
+
 def getAllInstructors():
     result_instructors = []
     instructorData = {}
@@ -210,6 +221,7 @@ def getStudentGrade(user_id, course_id):
     else:
         return studentGrade.grade
 
+
 def addStudentGrade(user_id, course_id, grade):
     studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
     if not studentGrade:
@@ -219,6 +231,16 @@ def addStudentGrade(user_id, course_id, grade):
         studentGrade.grade = grade
     db.session.commit()
     return
+
+
+def deleteGradeDB(user_id, course_id):
+    studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
+    if not studentGrade:
+        return False
+    else:
+        db.session.delete(studentGrade)
+        db.session.commit()
+        return True
 
 
 def deleteUserDB(user_id):

@@ -50,6 +50,19 @@ def courseAdd():
             flash('The email is already taken.')
     return render_template('courseAdd.html', form=form, title='Add a new course')
 
+
+@app.route('/deleteCourse/<int:course_id>')
+@login_required
+def courseDelete(course_id):
+    instructor_id = getInstructorIdForACourse(course_id)
+    if current_user.isInstructor() and current_user.user_id == instructor_id:       # checking if the user is instructor and opened this course
+        if deleteCourse(course_id):
+            flash("The course has been deleted.")
+    else:
+        flash("You don't have authorization to delete this course.")
+    return redirect(url_for('home'))
+
+
 @app.route('/addOutcome', methods = ['GET', 'POST'])
 @login_required
 def outcomeAdd():
@@ -68,4 +81,5 @@ def GradeSetup(course_id):
         studentGrade = getStudentGrade(current_user.user_id, course_id)
         if studentGrade is None:
             studentGrade = '-'
+    print(studentGrade)
     return studentGrade
