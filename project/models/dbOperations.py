@@ -15,8 +15,6 @@ def registerUser(form):
         db.session.add(user)
         db.session.commit()
         if type == 1:   # if new user is a instructor
-            print(user.user_id)
-            print(form.title.data)
             instructor = Instructor(instructor_id=user.user_id, title=form.title.data)
             db.session.add(instructor)
             db.session.commit()
@@ -46,8 +44,16 @@ def registerCourse(form, user_id):
             db.session.commit()
         return True
     else:
-        print("The CRN is already taken.")
         return False
+
+def deleteCourse(course_id):
+    course = Course.query.get_or_404(course_id)
+    if not course:
+        return False
+    else:
+        db.session.delete(course)
+        db.session.commit()
+    return True
 
 def registerOutcome(form):
     outcome = Outcome.query.filter_by(name=form.name.data).first()
@@ -55,21 +61,21 @@ def registerOutcome(form):
         outcome = Outcome(name=form.name.data)
         db.session.add(outcome)
         db.session.commit()
+        return True
     else:
-        print("Outcome already exists.")
         return False
 
 
 def getUserData(user_id):
     userData = {}
     user = RegUser.query.filter_by(user_id=user_id).first()
+    userData['user_id'] = user_id
     userData['type'] = 'Instructor' if user.user_type == 1 else 'Student'
     userData['name'] = user.name
     userData['surname'] = user.surname
     userData['department'] = Department.query.filter_by(department_id=user.department_id).first().department_name
 
     if user.user_type == 1 :
-        print(user.instructor.title)
         userData['private_info'] = user.instructor.title
         userData['user_type'] = 1
     else:
@@ -137,7 +143,6 @@ def getAllCourses():
     courses = Course.query.all()
 
     for course in courses:
-        print(course.course_id)
         courseData['course_id'] = course.course_id
         courseData['code'] = course.course_code
 
@@ -168,6 +173,10 @@ def getCourseData(course_id):
     courseData['outcomes'] = getOutcomes(course_id)
 
     return courseData
+
+
+def getInstructorIdForACourse(course_id):
+    return Course.query.get_or_404(course_id).instructor_id
 
 
 def getAllInstructors():
@@ -214,13 +223,33 @@ def getStudentGrade(user_id, course_id):
     else:
         return studentGrade.grade
 
+
 def addStudentGrade(user_id, course_id, grade):
     studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
     if not studentGrade:
         studentGrade = Student_Grade(student_id=user_id, course_id=course_id, grade=grade)
         db.session.add(studentGrade)
     else:
-        print(grade)
         studentGrade.grade = grade
     db.session.commit()
     return
+
+
+def deleteGradeDB(user_id, course_id):
+    studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
+    if not studentGrade:
+        return False
+    else:
+        db.session.delete(studentGrade)
+        db.session.commit()
+        return True
+
+
+def deleteUserDB(user_id):
+    user = RegUser.query.get_or_404(user_id)
+    if not user:
+        flash('User could not found on the system.')
+        return False
+    db.session.delete(user)
+    db.session.commit()
+    return True

@@ -41,7 +41,8 @@
       </tbody>
     </table>
     
-    <a href="logout" id="id-logout" class="btn float-right">Logout</a>  
+    <a href="logout" id="id-logout" class="btn float-right">Logout</a> 
+    <a href="{{ url_for('deleteAccount', user_id=user.user_id) }}" id="id-logout" class="btn float-right">Delete Account</a>
     
 
   </div>

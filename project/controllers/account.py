@@ -15,7 +15,7 @@ def Login():
     form = LoginForm()
     if form.validate_on_submit():
         user = RegUser.query.filter_by(email=form.email.data+"@itu.edu.tr").first()
-        if user.user_id and Crypto.checkPassword(form.password.data, user.password):
+        if user and Crypto.checkPassword(form.password.data, user.password):
             login_user(user)
             return redirect(url_for('home'))
         else:
@@ -43,3 +43,14 @@ def Register():
             flash('The email is already taken.')
 
     return render_template('register.html', form=form, title='Register')
+
+
+@app.route("/deleteAccount/<int:user_id>")
+def deleteAccount(user_id):
+    if current_user.isAdmin():
+        if deleteUserDB(user_id):
+            flash("User has been deleted.")
+    else:
+        if deleteUserDB(current_user.user_id):
+            flash("Your account has been deleted.")
+    return redirect(url_for('home'))
