@@ -41,13 +41,15 @@ def course(course_id):
 @app.route('/addCourse', methods = ['GET', 'POST'])
 @login_required
 def courseAdd():
+    if (current_user.isInstructor() == False):
+        return redirect('home')
     form = CourseRegistrationForm()
     if form.validate_on_submit():
         if registerCourse(form, current_user.user_id):
             flash('New course has been created!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('The email is already taken.')
+            flash('The crn already exist.')
     return render_template('courseAdd.html', form=form, title='Add a new course')
 
 @app.route('/addOutcome', methods = ['GET', 'POST'])
