@@ -23,7 +23,7 @@
           <td> {{ user.department }} </td>
         </tr>
         <tr>
-          {% if user.user_type == 1 %}
+          {% if user.user_type == 'Instructor' %}
             <td class="font-weight-bold">Title</td>
           {% else %}
             <td class="font-weight-bold">Student Number</td>
@@ -41,7 +41,8 @@
       </tbody>
     </table>
     
-    <a href="logout" id="id-logout" class="btn float-right">Logout</a>  
+    <a href="logout" id="id-logout" class="btn float-right">Logout</a> 
+    <a href="{{ url_for('deleteAccount', user_id=user.user_id) }}" id="id-logout" class="btn float-right">Delete Account</a>
     
 
   </div>

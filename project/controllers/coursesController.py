@@ -55,6 +55,7 @@ def courseAdd():
             flash('The crn already exist.')
     return render_template('courseAdd.html', form=form, title='Add a new course')
 
+
 @app.route('/editCourse/<int:course_id>', methods = ['GET', 'POST'])
 @login_required
 def courseEdit(course_id):
@@ -70,6 +71,18 @@ def courseEdit(course_id):
             flash('Course can not edited.')
     return render_template('courseEdit.html', form=form, title='Edit the Course',course=course)
 
+@app.route('/deleteCourse/<int:course_id>')
+@login_required
+def courseDelete(course_id):
+    instructor_id = getInstructorIdForACourse(course_id)
+    if current_user.isInstructor() and current_user.user_id == instructor_id:       # checking if the user is instructor and opened this course
+        if deleteCourse(course_id):
+            flash("The course has been deleted.")
+    else:
+        flash("You don't have authorization to delete this course.")
+    return redirect(url_for('home'))
+
+
 @app.route('/addOutcome', methods = ['GET', 'POST'])
 @login_required
 def outcomeAdd():
@@ -77,9 +90,9 @@ def outcomeAdd():
     if form.validate_on_submit():
         if registerOutcome(form):
             flash('New outcome has been created!', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('home'))
         else:
-            flash('The email is already taken.')
+            flash('The outcome already exists.')
     return render_template('outcomeAdd.html', form=form, title='Add a new outcome')
 
 def GradeSetup(course_id):
@@ -88,4 +101,5 @@ def GradeSetup(course_id):
         studentGrade = getStudentGrade(current_user.user_id, course_id)
         if studentGrade is None:
             studentGrade = '-'
+    print(studentGrade)
     return studentGrade

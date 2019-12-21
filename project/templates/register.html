@@ -1,6 +1,7 @@
 ﻿{% extends "layout.html" %}
 {% block content %}
-      <div class="d-flsex flex-csolumn">
+<div class="row justify-content-center">
+      <div class="d-flex flex-column">
           <form method="POST" action="">
               {{ form.hidden_tag() }}
               <div class="form-group">
@@ -121,5 +122,5 @@
               </div>
           </form>  
       </div>
-      
+</div>
 {% endblock content%}
