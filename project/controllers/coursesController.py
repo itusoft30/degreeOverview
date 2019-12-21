@@ -20,28 +20,7 @@ def course(course_id):
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
-        if current_user.isStudent() == False:
-            flash("Instructors cannot add a grade.")
-            return redirect('home')
-        if form.aa.data:
-            addStudentGrade(current_user.user_id, course_id, 'AA')
-        elif form.ba.data:
-            addStudentGrade(current_user.user_id, course_id, 'BA')
-        elif form.bb.data:
-            addStudentGrade(current_user.user_id, course_id, 'BB')
-        elif form.cb.data:
-            addStudentGrade(current_user.user_id, course_id, 'CB')
-        elif form.cc.data:
-            addStudentGrade(current_user.user_id, course_id, 'CC')
-        elif form.dc.data:
-            addStudentGrade(current_user.user_id, course_id, 'DC')
-        elif form.dd.data:
-            addStudentGrade(current_user.user_id, course_id, 'DD')
-        elif form.vf.data:
-            addStudentGrade(current_user.user_id, course_id, 'VF')
-        elif form.ff.data:
-            addStudentGrade(current_user.user_id, course_id, 'FF')
-        return redirect(url_for('course', course_id=course_id))
+        GradeFormManager(form, current_user.user_id, course_id)
 
     return render_template('course.html',edit = editable,form=form, course=course, course_id=course_id, student_grade=studentGrade, title='Courses')
 
@@ -85,7 +64,7 @@ def courseDelete(course_id):
             flash("The course has been deleted.")
     else:
         flash("You don't have authorization to delete this course.")
-    return redirect(url_for('home'), title='Courses')
+    return redirect(url_for('home'))
 
 
 @app.route('/addOutcome', methods = ['GET', 'POST'])
@@ -111,3 +90,24 @@ def GradeSetup(course_id):
             studentGrade = '-'
     print(studentGrade)
     return studentGrade
+
+def GradeFormManager(form, user_id, course_id):
+    if form.aa.data:
+        addStudentGrade(user_id, course_id, 'AA')
+    elif form.ba.data:
+        addStudentGrade(user_id, course_id, 'BA')
+    elif form.bb.data:
+        addStudentGrade(user_id, course_id, 'BB')
+    elif form.cb.data:
+        addStudentGrade(user_id, course_id, 'CB')
+    elif form.cc.data:
+        addStudentGrade(user_id, course_id, 'CC')
+    elif form.dc.data:
+        addStudentGrade(user_id, course_id, 'DC')
+    elif form.dd.data:
+        addStudentGrade(user_id, course_id, 'DD')
+    elif form.vf.data:
+        addStudentGrade(user_id, course_id, 'VF')
+    elif form.ff.data:
+        addStudentGrade(user_id, course_id, 'FF')
+    return redirect(url_for('course', course_id=course_id))
