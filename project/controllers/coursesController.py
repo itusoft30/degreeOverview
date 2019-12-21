@@ -24,11 +24,9 @@ def course(course_id):
     editable = False
     course = getCourseData(course_id)
     studentGrade = GradeSetup(course_id)
-
     if current_user.is_authenticated and course['insturctorId'] == current_user.user_id:
         editable = True
     form = StudentGradeForm()
-
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
@@ -76,7 +74,7 @@ def courseDelete(course_id):
             flash("The course has been deleted.")
     else:
         flash("You don't have authorization to delete this course.")
-    return redirect(url_for('home'), title='Courses')
+    return redirect(url_for('home'))
 
 
 @app.route('/addOutcome', methods = ['GET', 'POST'])
