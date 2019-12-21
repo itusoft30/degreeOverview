@@ -52,7 +52,6 @@ def updateCourseData(course_id, form):
     course = Course.query.filter_by(crn=form.crn.data).first()
     updated_course = Course.query.get_or_404(course_id)
     if course:
-        print("CRN is already taken.")
         return False
     updated_course.crn = form.crn.data
     updated_course.name = form.name.data

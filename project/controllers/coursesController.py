@@ -7,7 +7,7 @@ from project.controllers.forms import CourseRegistrationForm, OutcomeRegistratio
 @app.route('/courses', methods = ['GET'])
 def courses():
     courses, courses_count = getAllCourses()
-    return render_template('courses.html', courses=courses, courses_count=courses_count)
+    return render_template('courses.html', courses=courses, courses_count=courses_count, title='Courses')
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
 def course(course_id):
