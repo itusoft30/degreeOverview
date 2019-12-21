@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  
+
   {% if title %}
     <title>DEWO - {{ title }}</title>
   {% else %}
@@ -69,14 +69,27 @@
             <li class="nav-item">
           {% endif %}
               <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
-          </li>    
+          </li>
 
         </ul>
       </div>
     {% endif %}
   </nav>
 
+  <!--
+  <title>My Application</title>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}-->
+
     <div id="{{ title }}" class="csMain">
+
       {% block content %}{% endblock %}
     </div>
 
