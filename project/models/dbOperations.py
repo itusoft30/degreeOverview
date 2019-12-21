@@ -49,6 +49,36 @@ def registerCourse(form, user_id):
         print("The CRN is already taken.")
         return False
 
+
+def updateCourseData(course_id, form):
+    course = Course.query.filter_by(crn=form.crn.data).first()
+    updated_course = Course.query.get_or_404(course_id)
+    if course.crn != updated_course.crn and course.crn == form.crn.data:
+        print("CRN is already taken.")
+        return False
+    course.crn = form.crn.data
+    course.name = form.name.data
+    course.course_code = form.course_code.data
+    course.credit = form.credit.data
+    course.department_id = form.department.data
+
+    i = 0
+    outcomes = Course_Outcome.query.filter_by(course_id=course_id)
+    for outcome in outcomes:
+        print(outcome.outcome_id)
+        print(form.outcomes.data[i])
+        #outcome.outcome_id = form.outcomes.data[i]
+        i += 1
+
+    i = 0
+    prerequisites = Prerequisite.query.filter_by(course_id=course_id)
+    for prerequisite in prerequisites:
+        prerequisite.requisite_id = form.prerequisites.data[i]
+        i += 1
+
+    return True
+
+
 def registerOutcome(form):
     outcome = Outcome.query.filter_by(name=form.name.data).first()
     if not outcome:
@@ -166,6 +196,27 @@ def getCourseData(course_id):
     courseData['outcomes'] = getOutcomes(course_id)
 
     return courseData
+
+def getCourse(course_id):
+    return Course.query.get_or_404(course_id)
+
+
+def getPrerequisitesIds(course_id):
+    prerequisites = Prerequisite.query.filter_by(course_id=course_id)
+    prerequisite_ids = []
+    for _id in prerequisites:
+        prerequisite_ids.append((_id.requisite_id))
+
+    return prerequisite_ids
+
+
+def getOutcomeIds(course_id):
+    outcomes = Course_Outcome.query.filter_by(course_id=course_id)
+    outcome_ids = []
+    for _id in outcomes:
+        outcome_ids.append((_id.outcome_id))
+
+    return outcome_ids
 
 
 def getAllInstructors():
