@@ -2,7 +2,7 @@ from project import app
 from flask import render_template, redirect, url_for, flash, request
 from project.models.dbOperations import *
 from flask_login import login_required, current_user
-from project.controllers.forms import CourseRegistrationForm, OutcomeRegistrationForm, StudentGradeForm
+from project.controllers.forms import CourseRegistrationForm, OutcomeRegistrationForm, StudentGradeForm,CourseUpdateForm
 
 @app.route('/courses', methods = ['GET'])
 def courses():
@@ -11,8 +11,11 @@ def courses():
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
 def course(course_id):
+    editable = False
     course = getCourseData(course_id)
     studentGrade = GradeSetup(course_id)
+    if course['insturctorId'] == current_user.user_id:
+        editable = True
     form = StudentGradeForm()
     if form.validate_on_submit():
         if not current_user.is_authenticated:
@@ -36,7 +39,7 @@ def course(course_id):
         elif form.ff.data:
             addStudentGrade(current_user.user_id, course_id, 'FF')
 
-    return render_template('course.html', form=form, course=course, student_grade=studentGrade)
+    return render_template('course.html',edit = editable,form=form, course=course,course_id=course_id,student_grade=studentGrade)
 
 @app.route('/addCourse', methods = ['GET', 'POST'])
 @login_required
@@ -51,6 +54,21 @@ def courseAdd():
         else:
             flash('The crn already exist.')
     return render_template('courseAdd.html', form=form, title='Add a new course')
+
+@app.route('/editCourse/<int:course_id>', methods = ['GET', 'POST'])
+@login_required
+def courseEdit(course_id):
+    if (current_user.isInstructor() == False):
+        return redirect('home')
+    course = getCourseData(course_id)
+    form = CourseUpdateForm()
+    if form.validate_on_submit():
+        if updateCourseData(course_id, form):
+            flash('Course edited!', 'success')
+            return redirect(url_for('course',course_id= course_id))
+        else:
+            flash('Course can not edited.')
+    return render_template('courseEdit.html', form=form, title='Edit the Course',course=course)
 
 @app.route('/addOutcome', methods = ['GET', 'POST'])
 @login_required

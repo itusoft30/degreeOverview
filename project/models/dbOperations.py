@@ -53,29 +53,27 @@ def registerCourse(form, user_id):
 def updateCourseData(course_id, form):
     course = Course.query.filter_by(crn=form.crn.data).first()
     updated_course = Course.query.get_or_404(course_id)
-    if course.crn != updated_course.crn and course.crn == form.crn.data:
+    if course:
         print("CRN is already taken.")
         return False
-    course.crn = form.crn.data
-    course.name = form.name.data
-    course.course_code = form.course_code.data
-    course.credit = form.credit.data
-    course.department_id = form.department.data
+    updated_course.crn = form.crn.data
+    updated_course.name = form.name.data
+    updated_course.course_code = form.course_code.data
+    updated_course.credit = form.credit.data
+    updated_course.department_id = form.department.data
 
-    i = 0
-    outcomes = Course_Outcome.query.filter_by(course_id=course_id)
-    for outcome in outcomes:
-        print(outcome.outcome_id)
-        print(form.outcomes.data[i])
-        #outcome.outcome_id = form.outcomes.data[i]
-        i += 1
 
-    i = 0
-    prerequisites = Prerequisite.query.filter_by(course_id=course_id)
-    for prerequisite in prerequisites:
-        prerequisite.requisite_id = form.prerequisites.data[i]
-        i += 1
+    Course_Outcome.query.filter_by(course_id=course_id).delete()
+    Prerequisite.query.filter_by(course_id=course_id).delete()
 
+    for id in form.prerequisites.data:  # adding all the prerequisites
+        prerequisite = Prerequisite(course_id=updated_course.course_id, requisite_id=id)
+        db.session.add(prerequisite)
+    for outcome_id in form.outcomes.data:  # adding all the outcomes
+        course_outcome = Course_Outcome(course_id=updated_course.course_id, outcome_id=outcome_id)
+        db.session.add(course_outcome)
+
+    db.session.commit()
     return True
 
 
@@ -192,6 +190,7 @@ def getCourseData(course_id):
     courseData['course_name'] = course.name
     courseData['department'] = Department.query.filter_by(department_id=course.department_id).first().department_name
     courseData['instructor'] = getInstructorFullName(course.instructor_id)
+    courseData['insturctorId'] = course.instructor_id
     courseData['crn'] = course.crn
     courseData['credit'] = course.credit
     courseData['prerequisites'] = getPrerequisites(course_id)
