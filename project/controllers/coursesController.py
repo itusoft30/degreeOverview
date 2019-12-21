@@ -47,7 +47,7 @@ def courseAdd():
             flash('New course has been created!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('The email is already taken.')
+            flash('The crn already exist.')
     return render_template('courseAdd.html', form=form, title='Add a new course')
 
 @app.route('/addOutcome', methods = ['GET', 'POST'])

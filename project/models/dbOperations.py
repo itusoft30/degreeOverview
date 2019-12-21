@@ -39,7 +39,7 @@ def registerCourse(form, user_id):
         for id in form.prerequisites.data:      # adding all the prerequisites
             prerequisite = Prerequisite(course_id=course.course_id, requsite_id=id)
             db.session.add(prerequisite)
-            de.session.commit()
+            db.session.commit()
         for outcome_id in form.outcomes.data:   # adding all the outcomes
             course_outcome = Course_Outcome(course_id=course.course_id, outcome_id=outcome_id)
             db.session.add(course_outcome)
@@ -71,8 +71,10 @@ def getUserData(user_id):
     if user.user_type == 1 :
         print(user.instructor.title)
         userData['private_info'] = user.instructor.title
+        userData['user_type'] = 1
     else:
         userData['private_info'] = user.student.id_number
+        userData['user_type'] = 2
 
     userData['email'] = user.email
     
