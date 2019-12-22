@@ -13,13 +13,40 @@ function init() {
                 isInitial: false,
                 isOngoing: false
               }),
-              
+
           validCycle: go.Diagram.CycleNotDirected,
           "undoManager.isEnabled": true
         });
 
     var graygrad = $(go.Brush, "Linear",
-      { 0: "black", 0.1: "white", 0.9: "blue", 1: "green" });
+      { 0: "#1089ff"});
+
+
+    // MAIN NODE
+    myDiagram.nodeTemplateMap.add("Loading",
+    $(go.Node, "Spot",
+      { selectionAdorned: false, textEditable: false, locationObjectName: "BODY" },
+      new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+      // the main body consists of a Rectangle surrounding the text
+      $(go.Panel, "Auto",
+        { name: "BODY" },
+        $(go.Shape, "RoundedRectangle",
+          { fill: graygrad, strokeWidth: 0, minSize: new go.Size(120, 60)}),
+        $(go.TextBlock,
+          {stroke: "white", font: "20px myFont", editable: false,
+            margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Center,
+          },
+          new go.Binding("text", "text"))
+      ),
+
+
+      // output port
+      $(go.Panel, "Auto",
+        { alignment: go.Spot.Right, portId: "from" },
+        $(go.Shape, "Rectangle",
+        { width: 8, height: 60, fill: "#23374d", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
+      )
+    ));
 
     // CHILD
     myDiagram.nodeTemplate =  // the default node template
@@ -30,63 +57,29 @@ function init() {
         $(go.Panel, "Auto",
           { name: "BODY" },
           $(go.Shape, "Rectangle",
-            { fill: graygrad, stroke: "gray", minSize: new go.Size(50, 40) },
-            new go.Binding("fill", "isSelected", function(s) { return s ? "red" : graygrad; }).ofObject()),
+            { fill: graygrad, strokeWidth: 0, minSize: new go.Size(120, 60)}),
           $(go.TextBlock,
-            {
-              stroke: "black", font: "12px sans-serif", editable: true,
-              margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Left
-            },
-            new go.Binding("text").makeTwoWay())
-        ),
-        // output port
-        $(go.Panel, "Auto",
-          { alignment: go.Spot.Right, portId: "from", cursor: "pointer" },
-          $(go.Shape, "Circle",
-            { width: 22, height: 22, fill: "white", stroke: "dodgerblue", strokeWidth: 3 }),
-          $(go.Shape, "PlusLine",
-            { width: 11, height: 11, fill: null, stroke: "dodgerblue", strokeWidth: 3 })
-        ),
-        // input port
-        $(go.Panel, "Auto",
-          { alignment: go.Spot.Left, portId: "to", toLinkable: true },
-          $(go.Shape, "Circle",
-            { width: 8, height: 8, fill: "white", stroke: "gray" }),
-          $(go.Shape, "Circle",
-            { width: 4, height: 4, fill: "dodgerblue", stroke: null })
-        )
-      );
-
-
-
-    // MAIN NODE
-    myDiagram.nodeTemplateMap.add("Loading",
-      $(go.Node, "Spot",
-        { selectionAdorned: false, textEditable: false, locationObjectName: "BODY" },
-        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-        // the main body consists of a Rectangle surrounding the text
-        $(go.Panel, "Auto",
-          { name: "BODY" },
-          $(go.Shape, "Rectangle",
-            { fill: graygrad, stroke: "gray", minSize: new go.Size(50, 40) },
-            new go.Binding("fill", "isSelected", function(s) { return s ? "dodgerblue" : graygrad; }).ofObject()),
-          $(go.TextBlock,
-            {
-              stroke: "black", font: "12px sans-serif", editable: true,
-              margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Left
+            {stroke: "white", font: "20px myFont", editable: false,
+              margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Center,
             },
             new go.Binding("text", "text"))
+        ),
+
+        // input port
+        $(go.Panel, "Auto",
+        { alignment: go.Spot.Left, portId: "to", toLinkable: false },
+        $(go.Shape, "Rectangle",
+          { width: 8, height: 60, fill: "#23374d", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
         ),
         // output port
         $(go.Panel, "Auto",
           { alignment: go.Spot.Right, portId: "from" },
-          $(go.Shape, "Circle",
-            { width: 22, height: 22, fill: "white", stroke: "dodgerblue", strokeWidth: 3 }),
-          $(go.Shape, "PlusLine",
-            { width: 11, height: 11, fill: null, stroke: "dodgerblue", strokeWidth: 3 })
+          $(go.Shape, "Rectangle",
+          { width: 8, height: 60, fill: "#23374d", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
         )
-      ));
+      );
 
+      // END NODE
     myDiagram.nodeTemplateMap.add("End",
       $(go.Node, "Spot",
         { selectionAdorned: false, textEditable: false, locationObjectName: "BODY" },
@@ -94,123 +87,54 @@ function init() {
         // the main body consists of a Rectangle surrounding the text
         $(go.Panel, "Auto",
           { name: "BODY" },
-          $(go.Shape, "Rectangle",
-            { fill: graygrad, stroke: "#f8b195", strokeWidth: 5, minSize: new go.Size(50, 40) },
-            new go.Binding("fill", "isSelected", function(s) { return s ? "dodgerblue" : graygrad; }).ofObject()),
+          $(go.Shape, "RoundedRectangle",
+            { fill: graygrad, strokeWidth: 0, minSize: new go.Size(120, 60)}),
           $(go.TextBlock,
-            {
-              stroke: "black", font: "12px sans-serif", editable: true,
-              margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Left
+            {stroke: "white", font: "20px myFont", editable: false,
+              margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Center,
             },
             new go.Binding("text", "text"))
         ),
+
         // input port
         $(go.Panel, "Auto",
-          { alignment: go.Spot.Left, portId: "to", toLinkable: true },
-          $(go.Shape, "Circle",
-            { width: 8, height: 8, fill: "white", stroke: "gray" }),
-          $(go.Shape, "Circle",
-            { width: 4, height: 4, fill: "dodgerblue", stroke: null })
+          { alignment: go.Spot.Left, portId: "to", toLinkable: false },
+          $(go.Shape, "Rectangle",
+            { width: 8, height: 60, fill: "#23374d", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
         )
       ));
 
 
-    // dropping a node on this special node will cause the selection to be deleted;
-    // linking or relinking to this special node will cause the link to be deleted
-    myDiagram.nodeTemplateMap.add("Recycle",
-      $(go.Node, "Auto",
-        {
-          portId: "to", toLinkable: true, deletable: false,
-          layerName: "Background", locationSpot: go.Spot.Center
-        },
-        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-        { dragComputation: function(node, pt, gridpt) { return pt; } },
-        { mouseDrop: function(e, obj) { myDiagram.commandHandler.deleteSelection(); } },
-        $(go.Shape,
-          { fill: "lightgray", stroke: "gray" }),
-        $(go.TextBlock, "Drop Here\nTo Delete",
-          { margin: 5, textAlign: "center" })
-      ));
-
-    // this is a click event handler that adds a node and a link to the diagram,
-    // connecting with the node on which the click occurred
-    function addNodeAndLink(e, obj) {
-      var fromNode = obj.part;
-      var diagram = fromNode.diagram;
-      diagram.startTransaction("Add State");
-      // get the node data for which the user clicked the button
-      var fromData = fromNode.data;
-      // create a new "State" data object, positioned off to the right of the fromNode
-      var p = fromNode.location.copy();
-      p.x += diagram.toolManager.draggingTool.gridSnapCellSize.width;
-      var toData = {
-        text: "new",
-        loc: go.Point.stringify(p)
-      };
-      // add the new node data to the model
-      var model = diagram.model;
-      model.addNodeData(toData);
-      // create a link data from the old node data to the new node data
-      var linkdata = {
-        from: model.getKeyForNodeData(fromData),
-        to: model.getKeyForNodeData(toData)
-      };
-      // and add the link data to the model
-      model.addLinkData(linkdata);
-      // select the new Node
-      var newnode = diagram.findNodeForData(toData);
-      diagram.select(newnode);
-      // snap the new node to a valid location
-      newnode.location = diagram.toolManager.draggingTool.computeMove(newnode, p);
-      // then account for any overlap
-      shiftNodesToEmptySpaces();
-      diagram.commitTransaction("Add State");
-    }
-
-    // Highlight ports when they are targets for linking or relinking.
-    var OldTarget = null;  // remember the last highlit port
-    function highlight(port) {
-      if (OldTarget !== port) {
-        lowlight();  // remove highlight from any old port
-        OldTarget = port;
-        port.scale = 1.3;  // highlight by enlarging
-      }
-    }
-    function lowlight() {  // remove any highlight
-      if (OldTarget) {
-        OldTarget.scale = 2.0;
-        OldTarget = null;
-      }
-    }
-
-    // Connecting a link with the Recycle node removes the link
-    myDiagram.addDiagramListener("LinkDrawn", function(e) {
-      var link = e.subject;
-      if (link.toNode.category === "Recycle") myDiagram.remove(link);
-      lowlight();
-    });
-    myDiagram.addDiagramListener("LinkRelinked", function(e) {
-      var link = e.subject;
-      if (link.toNode.category === "Recycle") myDiagram.remove(link);
-      lowlight();
-    });
 
     myDiagram.linkTemplate =
+    $(go.Link,
+      { fromPortId: "from", toPortId: "to",
+        curve: go.Link.Bezier,
+        fromShortLength: -2,
+        toShortLength: -2,
+        selectable: false
+      },
+      $(go.Shape,
+        { strokeWidth: 3 },
+        new go.Binding("stroke", "toNode", function(n) {
+          if (n.data.brush) return n.data.brush;
+          return "black";
+        }).ofObject())
+    ); // the link shape
+      /*
       $(go.Link,
-        { selectionAdorned: false, fromPortId: "from", toPortId: "to", relinkableTo: true },
-        $(go.Shape,
-          { stroke: "gray", strokeWidth: 2 },
-          {
-            mouseEnter: function(e, obj) { obj.strokeWidth = 5; obj.stroke = "dodgerblue"; },
-            mouseLeave: function(e, obj) { obj.strokeWidth = 2; obj.stroke = "gray"; }
-          })
-      );
+        { fromPortId: "from", toPortId: "to",
+          curve: go.Link.Bezier,
+          toEndSegmentLength: 50, fromEndSegmentLength: 50
+        },
+        $(go.Shape, {stroke: "#23374d", strokeWidth: 3 }) // the link shape, with the default black stroke
+      );*/
 
     function commonLinkingToolInit(tool) {
       // the temporary link drawn during a link drawing operation (LinkingTool) is thick and blue
       tool.temporaryLink =
         $(go.Link, { layerName: "Tool" },
-          $(go.Shape, { stroke: "dodgerblue", strokeWidth: 5 }));
+          $(go.Shape, { stroke: "dodgerblue", strokeWidth: 0 }));
 
       // change the standard proposed ports feedback from blue rectangles to transparent circles
       tool.temporaryFromPort.figure = "Circle";
@@ -231,10 +155,7 @@ function init() {
 
     var rtool = myDiagram.toolManager.relinkingTool;
     commonLinkingToolInit(rtool);
-    // change the standard relink handle to be a shape that takes the shape of the link
-    rtool.toHandleArchetype =
-      $(go.Shape,
-        { isPanelMain: true, fill: null, stroke: "dodgerblue", strokeWidth: 5 });
+    // change the standard relink handle to be a shape that takes the shape of the
 
     // use a special DraggingTool to cause the dragging of a Link to start relinking it
     myDiagram.toolManager.draggingTool = new DragLinkingTool();
@@ -291,18 +212,19 @@ function init() {
     go.DraggingTool.call(this);
     this.isGridSnapEnabled = true;
     this.isGridSnapRealtime = false;
-    this.gridSnapCellSize = new go.Size(182, 1);
-    this.gridSnapOrigin = new go.Point(5.5, 0);
+    this.gridSnapCellSize = new go.Size(500, 1);
+    this.gridSnapOrigin = new go.Point(10.5, 10);
   }
-  go.Diagram.inherit(DragLinkingTool, go.DraggingTool);
 
-  // Handle dragging a link specially -- by starting the RelinkingTool on that Link
-  DragLinkingTool.prototype.doActivate = function() {
+  //go.Diagram.inherit(DragLinkingTool, go.DraggingTool);
+
+  // Handle dragging a link specially -- by starting the RelinkingTool on that Link/*
+  /*DragLinkingTool.prototype.doActivate = function() {
     var diagram = this.diagram;
     if (diagram === null) return;
     this.standardMouseSelect();
     var main = this.currentPart;  // this is set by the standardMouseSelect
-    
+
     if (main instanceof go.Link) { // maybe start relinking instead of dragging
       var relinkingtool = diagram.toolManager.relinkingTool;
       // tell the RelinkingTool to work on this Link, not what is under the mouse
@@ -315,5 +237,5 @@ function init() {
     } else {
       go.DraggingTool.prototype.doActivate.call(this);
     }
-  };
+  };*/
   // end DragLinkingTool
