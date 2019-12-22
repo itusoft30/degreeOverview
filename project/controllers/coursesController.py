@@ -12,8 +12,11 @@ def courses():
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
-        GradeFormManager(form, current_user.user_id, request.form['course'])
-        return redirect(url_for(courses))
+        if current_user.isStudent():
+            GradeFormManager(form, current_user.user_id, int(request.form['course']))
+            return redirect(url_for('courses'))
+        else:
+            flash("You must be student.")
     return render_template('courses.html', courses=courses, form=form, courses_count=courses_count, title='Courses')
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
