@@ -40,7 +40,13 @@
           </li>
           <li class="list-group-item d-flex">
             <div class="col font-weight-bold">Outcome/s</div>
-            <div class="col">{{ course.outcomes }}  </div>
+            <div class="col">
+              {% if course.prerequisites %}
+                {{ course.outcomes }}
+              {% else %}
+                None
+              {% endif %}
+            </div>
           </li>
           <li class="list-group-item d-flex">
             <div class="col font-weight-bold">CRN</div>
