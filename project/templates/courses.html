@@ -1,13 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
   <div class="row justify-content-center">
+
     <div class="col-sm-4">
-      <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search For Course">
-          <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="submit">Bring</button>  
-          </div>
-      </div>
+    
+      <input class="form-control mb-3" id="myInput" type="text" placeholder="Search For Course..">
 
       <form>
         <select name="soft-department" class="custom-select mb-2">
@@ -15,12 +12,6 @@
           <option value="COEN">Computer Engineering</option>
           <option value="ECEN">Electronics and Communication Engineering</option>
           <option value="ARCH">Architecture</option>
-        </select>
-        <select name="soft-term" class="custom-select">
-          <option selected>Term</option>
-          <option value="volvo">Volvo</option>
-          <option value="fiat">Fiat</option>
-          <option value="audi">Audi</option>
         </select>
         <button type="submit" class="btn btn-outline-primary mt-2 float-right">Bring</button>
       </form>
@@ -30,7 +21,7 @@
     <div class="col-sm-8">
       <div class="container">
 
-
+  
         {% if courses_count > 1 %}
           <h5>{{ courses_count }} courses were found</h5>
         {% else %}
@@ -41,11 +32,11 @@
         <div id="accordion">
           {% if courses %}
             {% for course in courses %}
-
-                <div class="card">
+                <li class="card">
                   <div class="card-header d-flex">
+
                     <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
-                      <div class="col-3 p-0 font-weight-bold">{{ course.code }}</div>
+                      <td><div class="col-3 p-0 font-weight-bold">{{ course.code }}</div></td>
                       <div class="col-5 p-0 pl-1">
                         {% if course.prerequisites %}
                           {{ course.prerequisites }}
@@ -64,6 +55,7 @@
                     <div class="ml-auto">
                       <a type="button" class="card-link btn btn-primary btn-sm" data-toggle="collapse" href="#{{ course.code }}"><i class='fas fa-plus'></i></a>
                     </div>
+
                   </div>
                   <div id="{{ course.code }}" class="collapse" data-parent="#accordion">
                     <div class="card-body btn-group btn-group float-right pt-2">
@@ -78,13 +70,24 @@
                         <button type="button" class="btn btn-outline-dark font-weight-bold btn-sm">VF</button>                
                     </div>
                   </div>
-
-              </div>
+                </li>
             {% endfor %}
           {% endif %}
         </div>
 
+        <script>
+          $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#accordion li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
+
       </div>
     </div>
+
   </div>
 {% endblock content%}
