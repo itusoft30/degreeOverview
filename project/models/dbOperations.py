@@ -304,3 +304,32 @@ def deleteUserDB(user_id):
     db.session.delete(user)
     db.session.commit()
     return True
+
+
+def getCourseConnections(user_id):
+    final_nodes = []
+    final_connections = []
+    course_ids = []
+    nodes = {}
+    connection = {}
+    courses = Student_Grade.query.filter_by(student_id=user_id).all()
+
+    for course in courses:
+        requisites = []
+        course_ids.append(course.course_id)
+        nodes['course_id'] = course.course_id
+        nodes['code'] = Course.query.get_or_404(course.course_id).course_code
+        prerequisites = Prerequisite.query.filter_by(course_id=course.course_id).all()
+        for prerequisite in prerequisites:
+            requisites.append(prerequisite.requisite_id)
+        nodes['requisites'] = requisites
+        final_nodes.append(nodes.copy())
+        #requisites.clear()
+    for course in final_nodes:
+        for requisite in course['requisites']:
+            if requisite in course_ids and requisite != course['course_id']:
+                connection['first'] = requisite
+                connection['second'] = course['course_id']
+                final_connections.append(connection.copy())
+    
+    return final_nodes, final_connections

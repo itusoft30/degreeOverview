@@ -60,7 +60,7 @@ def courseAdd():
 @login_required
 def courseEdit(course_id):
     if (current_user.isInstructor() == False):
-        return redirect('home')
+        return redirect(url_for('home'))
     course = getCourseData(course_id)
     form = CourseUpdateForm()
     if form.validate_on_submit():
