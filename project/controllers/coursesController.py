@@ -20,6 +20,9 @@ def course(course_id):
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
+        if current_user.isStudent() == False:
+            flash("Instructors cannot add a grade.")
+            return redirect('home')
         if form.aa.data:
             addStudentGrade(current_user.user_id, course_id, 'AA')
         elif form.ba.data:
@@ -38,13 +41,15 @@ def course(course_id):
             addStudentGrade(current_user.user_id, course_id, 'VF')
         elif form.ff.data:
             addStudentGrade(current_user.user_id, course_id, 'FF')
+        return redirect(url_for('course', course_id=course_id))
 
-    return render_template('course.html',edit = editable,form=form, course=course,course_id=course_id,student_grade=studentGrade)
+    return render_template('course.html',edit = editable,form=form, course=course,course_id=course_id,student_grade=studentGrade, title='Courses')
 
 @app.route('/addCourse', methods = ['GET', 'POST'])
 @login_required
 def courseAdd():
     if (current_user.isInstructor() == False):
+        flash("You don't have permission to add a course.")
         return redirect('home')
     form = CourseRegistrationForm()
     if form.validate_on_submit():
@@ -53,7 +58,7 @@ def courseAdd():
             return redirect(url_for('home'))
         else:
             flash('The crn already exist.')
-    return render_template('courseAdd.html', form=form, title='Add a new course')
+    return render_template('courseAdd.html', form=form, title='Courses')
 
 
 @app.route('/editCourse/<int:course_id>', methods = ['GET', 'POST'])
@@ -69,7 +74,7 @@ def courseEdit(course_id):
             return redirect(url_for('course',course_id= course_id))
         else:
             flash('Course can not edited.')
-    return render_template('courseEdit.html', form=form, title='Edit the Course',course=course)
+    return render_template('courseEdit.html', form=form, course=course, title='Courses')
 
 @app.route('/deleteCourse/<int:course_id>')
 @login_required
@@ -80,12 +85,15 @@ def courseDelete(course_id):
             flash("The course has been deleted.")
     else:
         flash("You don't have authorization to delete this course.")
-    return redirect(url_for('home'))
+    return redirect(url_for('home'), title='Courses')
 
 
 @app.route('/addOutcome', methods = ['GET', 'POST'])
 @login_required
 def outcomeAdd():
+    if (current_user.isInstructor() == False):
+        flash("You don't have permission to add an outcome.")
+        return redirect('home')
     form = OutcomeRegistrationForm()
     if form.validate_on_submit():
         if registerOutcome(form):

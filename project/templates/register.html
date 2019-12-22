@@ -81,14 +81,14 @@
                           <span class="input-group-text">{{ form.title.label }}</span>
                       </div>
                       {% if form.title.errors %}
-                      {{ form.title(class="form-control form-control-lg is-invalid") }}
-                      <div class="invalid-feedback">
-                          {% for error in form.title.errors %}
-                          <span>{{ error }}</span>
-                          {% endfor %}
-                      </div>
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
                       {% else %}
-                      {{ form.title(class="form-control bg-light") }}
+                        {{ form.title(class="form-control bg-light") }}
                       {% endif %}
                   </div>
 
@@ -97,14 +97,14 @@
                           <span class="input-group-text">{{ form.student_no.label }}</span>
                       </div>
                       {% if form.student_no.errors %}
-                      {{ form.student_no(class="form-control form-control-lg is-invalid") }}
-                      <div class="invalid-feedback">
-                          {% for error in form.student_no.errors %}
-                          <span>{{ error }}</span>
-                          {% endfor %}
-                      </div>
+                        {{ form.student_no(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.student_no.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
                       {% else %}
-                      {{ form.student_no(class="form-control bg-light") }}
+                        {{ form.student_no(class="form-control bg-light") }}
                       {% endif %}
                   </div>
               </div>

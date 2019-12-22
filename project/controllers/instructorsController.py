@@ -12,4 +12,4 @@ def instructors():
 @app.route("/instructor/<int:instructor_id>")
 def instructor(instructor_id):
     instructor = getInstructorData(instructor_id)
-    return render_template('instructor.html', instructor=instructor)
+    return render_template('instructor.html', instructor=instructor, title='Instructors')
