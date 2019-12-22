@@ -6,7 +6,7 @@
       <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Search For Course">
           <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="submit">Bring</button>  
+            <button class="btn btn-outline-primary" type="submit">Bring</button>
           </div>
       </div>
 
@@ -60,6 +60,7 @@
                     <div class="ml-auto">
                       <a type="button" class="card-link btn btn-primary btn-sm" data-toggle="collapse" href="#{{ course.code }}"><i class='fas fa-plus'></i></a>
                     </div>
+
                   </div>
                   <div id="{{ course.code }}" class="collapse" data-parent="#accordion">
                     <form method="POST" action="">
@@ -96,5 +97,6 @@
 
       </div>
     </div>
+
   </div>
 {% endblock content%}
