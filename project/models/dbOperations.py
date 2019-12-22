@@ -253,6 +253,13 @@ def getInstructorData(instructor_id):
     userData = RegUser.query.get_or_404(instructor_id)
     instructorData['email'] = userData.email
     instructorData['department'] = Department.query.filter_by(department_id=userData.department_id).first().department_name
+    instructorData['courses'] = getInstructorsCourses(instructor_id)
+    instructorData['course_count'] = len(instructor.courses)
+
+    return instructorData
+
+def getInstructorsCourses(instructor_id):
+    instructor = Instructor.query.get_or_404(instructor_id)
     courseData = {}
     final_courses = []
     for course in instructor.courses:
@@ -262,11 +269,7 @@ def getInstructorData(instructor_id):
         courseData['outcomes'] = getOutcomes(course.course_id)
 
         final_courses.append(courseData.copy())
-
-    instructorData['courses'] = final_courses
-    instructorData['course_count'] = len(instructor.courses)
-
-    return instructorData
+    return final_courses
 
 def getStudentGrade(user_id, course_id):
     studentGrade = Student_Grade.query.filter_by(student_id=user_id, course_id=course_id).first()
