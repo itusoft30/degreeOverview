@@ -32,10 +32,11 @@
         <div id="accordion">
           {% if courses %}
             {% for course in courses %}
-                <li class="card">
-                  <div class="card-header d-flex">
+                <li class="card mb-1" >
 
-                    <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
+                  <div class="card-header d-flex bg-light list-group-item-action">
+
+                    <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 text-decoration-none" style="color: rgb(20, 20, 20);">
                       <td><div class="col-3 p-0 font-weight-bold">{{ course.code }}</div></td>
                       <div class="col-5 p-0 pl-1">
                         {% if course.prerequisites %}
@@ -58,10 +59,10 @@
 
                   </div>
                   <div id="{{ course.code }}" class="collapse" data-parent="#accordion">
-                    <form method="POST" action="">
+                    <form class="d-flex justify-content-end" method="POST" action="">
                       {{ form.hidden_tag() }}
                       <input type="hidden" id="course" name="course" value="{{course.course_id}}">
-                      <div class="card-body btn-group btn-group float-right pt-2">
+                      <div class="card-body btn-group btn-group p-2" >
                           {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                           {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                           {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
@@ -74,6 +75,7 @@
                       </div>
                     </form>
                   </div>
+
                 </li>
             {% endfor %}
           {% endif %}
