@@ -36,31 +36,39 @@ body {
 #Home { /* HOME MAIN */
     margin: 0em;
     padding: 0em;
-    margin-left: 8em;
-    margin-right: 8em;
-    padding-bottom: 8.6em;  
+    margin-left: 25em;
+    margin-right: 25em;
+    padding-bottom: 8.5em;  
 }
 
-#id-profile-body .csMain{
-    padding-top: 6em;
+#Login{
+    padding-top: 10em;
 }
-
-#id-logout {
-    background: rgb(255, 14, 74);
-    color: white;
-    font-weight: bold;
+#Register{
+    padding-top: 10em;
+}
+#Profile{
+    padding-top: 10em;
 }
 
 .csDiagram {
-    border: solid 1px black; 
+    border: none; 
     width: 100%;
     height: 48em;
     margin: 0em;
     padding: 0em;
 }
 
+#idDanger {
+    background: #fe346e;
+    padding: 0.8em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    color: white;
+    font-weight: bold;
+}
 
-.cs-std-link {
+.csStdLink {
     border: none;
     border-radius: 0.3em;
     padding: 0.8em;
@@ -70,10 +78,10 @@ body {
     font-weight: bold;
     text-align: center;
     color: white;
-    background-color: rgb(46, 46, 46);
+    background-color: #2e2e2e;
 }
 
-:hover.cs-std-link {    
+:hover.csStdLink {    
     color: white;
 }
 
@@ -84,26 +92,11 @@ nav {
     background-position: center;
 }
 
-#idBody-Login {
-    background-image: url("grayBackground.jpg");
-    background: white;
-}
-#idBody-Login nav{
-    background: black;
-}
-#idBody-Login .csMain {
-    padding-top: 10%;
-    background: transparent;
-}
-#idBody-Login .cs-footer {
-    background: transparent;
-}
-
-#id-navbar  a{
+nav a{
     color: white;
 }
 
-#id-navbar  a:hover {
+nav  a:hover {
     -webkit-animation-name: animLink; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 0.3s; /* Safari 4.0 - 8.0 */
     animation-name: animLink;
@@ -120,7 +113,7 @@ nav {
     to {color: black;}
 }
 
-#id-navbar .soft-active a{
+nav .soft-active a{
     color: black;
     position: relative;
     -webkit-animation-name: animLinkSelected; /* Safari 4.0 - 8.0 */
@@ -143,7 +136,7 @@ nav {
     100% {background: #ffd800; top: 0px;}
 }
 
-#id-navbar  .softactive a:hover {
+nav  .softactive a:hover {
     background: #ffd800;;
 }
 
