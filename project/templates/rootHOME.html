@@ -1,22 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
 
-          <div class="row justify-content-center m-0">
-              <div id="myDiagramDiv" class="csDiagram" ></div>
-              <textarea id="mySavedModel" style="visibility: hidden">
-                { "class": "go.GraphLinksModel",
-                  "nodeDataArray": [
-                    {{ keys }}
-                  ],
-                  "linkDataArray": [
-                    {{ cons }}
-                  ]
-                }
-              </textarea>
-              <div class="d-flex flex-column" style="position: fixed; bottom: 10em; right: 20em; z-index: 10;">
-                <a href="{{ url_for('courseAdd') }}" class="cs-std-link float-right text-decoration-none">Add A Course</a>
-                <a href="{{ url_for('outcomeAdd') }}" class="cs-std-link float-right text-decoration-none">Add An Outcome</a>
+  <div class="row">
+    {% if userType == 'guest' %}
+      <div class="container d-flex flex-column text-center justify-content-center mt-5">
+        <h1 class="pt-5 mt-5 mb-5 pb-5" style="font-family: myFont;font-size: 5em; background: white; box-shadow: 0px 5px 10px whitesmoke;">WELCOME TO NEW YORK</h1>
+        <a href="" class="container col-2 csStdLink text-decoration-none ">LOGIN</a>
+        <hr class="container col-1 mt-2">
+        <a href="" class="container col-2 csStdLink text-decoration-none ">REGISTER</a>
+      </div>
+    {% else %}
+      {% if userType == "student" %}
+        <div id="myDiagramDiv" class="csDiagram" ></div>
+        <textarea id="mySavedModel" style="visibility: hidden">
+          { "class": "go.GraphLinksModel",
+            "nodeDataArray": [
+              {{ keys }}
+            ],
+            "linkDataArray": [
+              {{ cons }}
+            ]
+          }
+        </textarea>
+      {% else %}
+        {% if courses %}
+          {% for course in courses %}
+            <div class="card">
+              <div class="card-header d-flex">
+                <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
+                  <div class="col-3 p-0 font-weight-bold">{{ course.code }}</div>
+                </a>
               </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+          <div class="d-flex flex-column" style="position: fixed; bottom: 10em; right: 20em; z-index: 10; visibility: hidden;">
+            <a href="{{ url_for('courseAdd') }}" class="cs-std-link float-right text-decoration-none">Add A Course</a>
+            <a href="{{ url_for('outcomeAdd') }}" class="cs-std-link float-right text-decoration-none">Add An Outcome</a>
           </div>
+      {% endif %}
+    {% endif %}
+  </div>
 
 {% endblock content %}

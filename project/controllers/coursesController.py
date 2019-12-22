@@ -4,24 +4,36 @@ from project.models.dbOperations import *
 from flask_login import login_required, current_user
 from project.controllers.forms import CourseRegistrationForm, OutcomeRegistrationForm, StudentGradeForm,CourseUpdateForm
 
-@app.route('/courses', methods = ['GET'])
+@app.route('/courses', methods = ['GET', 'POST'])
 def courses():
     courses, courses_count = getAllCourses()
-    return render_template('courses.html', courses=courses, courses_count=courses_count, title='Courses')
+    form = StudentGradeForm()
+
+    if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            return redirect(url_for('Login'))
+        if current_user.isStudent():
+            GradeFormManager(form, current_user.user_id, int(request.form['course']))
+            return redirect(url_for('courses'))
+        else:
+            flash("You must be student.")
+    return render_template('courses.html', courses=courses, form=form, courses_count=courses_count, title='Courses')
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
 def course(course_id):
     editable = False
     course = getCourseData(course_id)
     studentGrade = GradeSetup(course_id)
+
     if current_user.is_authenticated and course['insturctorId'] == current_user.user_id:
         editable = True
     form = StudentGradeForm()
+
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
-        GradeFormManager(form, current_user.user_id, course_id)
 
+        GradeFormManager(form, current_user.user_id, course_id)
     return render_template('course.html',edit = editable,form=form, course=course, course_id=course_id, student_grade=studentGrade, title='Courses')
 
 @app.route('/addCourse', methods = ['GET', 'POST'])

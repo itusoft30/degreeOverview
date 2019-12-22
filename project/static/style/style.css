@@ -36,9 +36,9 @@ body {
 #Home { /* HOME MAIN */
     margin: 0em;
     padding: 0em;
-    margin-left: 8em;
-    margin-right: 8em;
-    padding-bottom: 8.6em;  
+    margin-left: 25em;
+    margin-right: 25em;
+    padding-bottom: 8.5em;  
 }
 
 #Login{
@@ -51,12 +51,6 @@ body {
     padding-top: 10em;
 }
 
-#id-logout {
-    background: rgb(255, 14, 74);
-    color: white;
-    font-weight: bold;
-}
-
 .csDiagram {
     border: none; 
     width: 100%;
@@ -65,7 +59,16 @@ body {
     padding: 0em;
 }
 
-.cs-std-link {
+#idDanger {
+    background: #fe346e;
+    padding: 0.8em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    color: white;
+    font-weight: bold;
+}
+
+.csStdLink {
     border: none;
     border-radius: 0.3em;
     padding: 0.8em;
@@ -75,10 +78,10 @@ body {
     font-weight: bold;
     text-align: center;
     color: white;
-    background-color: rgb(46, 46, 46);
+    background-color: #2e2e2e;
 }
 
-:hover.cs-std-link {    
+:hover.csStdLink {    
     color: white;
 }
 

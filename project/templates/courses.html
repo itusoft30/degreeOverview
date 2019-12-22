@@ -41,7 +41,6 @@
         <div id="accordion">
           {% if courses %}
             {% for course in courses %}
-
                 <div class="card">
                   <div class="card-header d-flex">
                     <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
@@ -53,8 +52,8 @@
                           None
                         {% endif %}
                       </div>
-                      <div class="col-3 p-0">    
-                        {% if course.outcomes %}           
+                      <div class="col-3 p-0">
+                        {% if course.outcomes %}
                           {{ course.outcomes }}
                         {% else %}
                           None
@@ -62,12 +61,15 @@
                       </div>
                     </a>
                     <div class="ml-auto">
-                      <a type="button" class="card-link btn btn-primary btn-sm" data-toggle="collapse" href="#{{ course.code }}"><i class='fas fa-plus'></i></a>
+                      <form  action="" method="GET">
+                        <button type="submit" name="btn" value="courseId" class="card-link btn btn-primary btn-sm" data-toggle="collapse" data-target="#{{ course.code }}"><i class='fas fa-plus'></i></button>
+                      </form>
                     </div>
                   </div>
                   <div id="{{ course.code }}" class="collapse" data-parent="#accordion">
                     <form method="POST" action="">
                       {{ form.hidden_tag() }}
+                      <input type="hidden" id="course" name="course" value="{{course.course_id}}">
                       <div class="card-body btn-group btn-group float-right pt-2">
                           {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                           {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
