@@ -41,7 +41,6 @@
         <div id="accordion">
           {% if courses %}
             {% for course in courses %}
-
                 <div class="card">
                   <div class="card-header d-flex">
                     <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
@@ -53,8 +52,8 @@
                           None
                         {% endif %}
                       </div>
-                      <div class="col-3 p-0">    
-                        {% if course.outcomes %}           
+                      <div class="col-3 p-0">
+                        {% if course.outcomes %}
                           {{ course.outcomes }}
                         {% else %}
                           None
