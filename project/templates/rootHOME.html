@@ -11,31 +11,10 @@
               <textarea id="mySavedModel" style="visibility: hidden">
                 { "class": "go.GraphLinksModel",
                   "nodeDataArray": [
-                    { "key":1, "text":"MAT 102E", "category":"Loading" },
-                    { "key":2, "text":"BLG 202E", "category":"End" },
-                    { "key":3, "text":"MAT 201E", "category":"End" },
-                    { "key":4, "text":"BLG 105E", "category":"Loading" },
-                    { "key":5, "text":"BLG 233E" },
-                    { "key":6, "text":"BLG 335E" },
-                    { "key":7, "text":"BLG 336E", "category":"End" },
-                    { "key":8, "text":"BLG 312E" },
-                    { "key":9, "text":"BLG 413E", "category":"End" },
-                    { "key":10, "text":"BLG 252E" },
-                    { "key":11, "text":"BLG 361E", "category":"End" },
-                    { "key":12, "text":"BLG 411E", "category":"End" }
+                    {{ keys }}
                   ],
                   "linkDataArray": [
-                    { "from":1, "to":2 },
-                    { "from":1, "to":3 },
-                    { "from":4, "to":5 },
-                    { "from":5, "to":6 },
-                    { "from":6, "to":7 },
-                    { "from":5, "to":8 },
-                    { "from":8, "to":9 },
-                    { "from":4, "to":10 },
-                    { "from":10, "to":11 },
-                    { "from":10, "to":6 },
-                    { "from":10, "to":12 }
+                    {{ cons }}
                   ]
                 }
               </textarea>
