@@ -62,14 +62,23 @@ def courseAdd():
 def courseEdit(course_id):
     if (current_user.isInstructor() == False):
         return redirect(url_for('home'))
-    course = getCourseData(course_id)
+    course = getCourse(course_id)
     form = CourseUpdateForm()
     if form.validate_on_submit():
         if updateCourseData(course_id, form):
             flash('Course edited!', 'success')
             return redirect(url_for('course',course_id= course_id))
         else:
-            flash('Course can not edited.')
+            flash('Course could not be edited.')
+    elif request.method == 'GET':
+        form.name.data = course.name
+        form.crn.data = course.crn
+        form.course_code.data = course.course_code
+        form.credit.data = course.credit
+        form.department.data = course.department_id
+        form.prerequisites.data = getPrerequisitesIds(course_id)
+        form.outcomes.data = getOutcomeIds(course_id)
+
     return render_template('courseAdd.html', form=form, course=course, title='Courses')
 
 @app.route('/deleteCourse/<int:course_id>')
