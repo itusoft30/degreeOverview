@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
+
+    {% if edit == True %}
+    <div class="d-flex">
+      <a href="{{ url_for('courseEdit', course_id= course_id )}}" class="cs-std-link float-right text-decoration-none">Edit</a>
+    </div>
+    {% endif %}
+
+
   <div class="row justify-content-center mt-5">
     <div class="col-7">
 
@@ -32,7 +40,13 @@
           </li>
           <li class="list-group-item d-flex">
             <div class="col font-weight-bold">Outcome/s</div>
-            <div class="col">{{ course.outcomes }}  </div>
+            <div class="col">
+              {% if course.prerequisites %}
+                {{ course.outcomes }}
+              {% else %}
+                None
+              {% endif %}
+            </div>
           </li>
           <li class="list-group-item d-flex">
             <div class="col font-weight-bold">CRN</div>
@@ -143,7 +157,7 @@
                   {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                   {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                   {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
-                  <button type="button" class="btn btn-outline-dark font-weight-bold btn-sm">VF</button>
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">VF</button>
                   {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
                 {% endif %}
                 {% if student_grade == 'FF' %}
@@ -155,7 +169,7 @@
                   {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                   {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
                   {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
-                  <button type="button" class="btn btn-outline-danger font-weight-bold btn-sm">FF</button>
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">FF</button>
                 {% endif %}
               </div>
             

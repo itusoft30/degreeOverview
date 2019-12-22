@@ -13,7 +13,7 @@ function init() {
                 isInitial: false,
                 isOngoing: false
               }),
-              
+
           validCycle: go.Diagram.CycleNotDirected,
           "undoManager.isEnabled": true
         });
@@ -39,7 +39,7 @@ function init() {
           new go.Binding("text", "text"))
       ),
 
-    
+
       // output port
       $(go.Panel, "Auto",
         { alignment: go.Spot.Right, portId: "from" },
@@ -155,7 +155,7 @@ function init() {
 
     var rtool = myDiagram.toolManager.relinkingTool;
     commonLinkingToolInit(rtool);
-    // change the standard relink handle to be a shape that takes the shape of the 
+    // change the standard relink handle to be a shape that takes the shape of the
 
     // use a special DraggingTool to cause the dragging of a Link to start relinking it
     myDiagram.toolManager.draggingTool = new DragLinkingTool();
@@ -224,7 +224,7 @@ function init() {
     if (diagram === null) return;
     this.standardMouseSelect();
     var main = this.currentPart;  // this is set by the standardMouseSelect
-    
+
     if (main instanceof go.Link) { // maybe start relinking instead of dragging
       var relinkingtool = diagram.toolManager.relinkingTool;
       // tell the RelinkingTool to work on this Link, not what is under the mouse
