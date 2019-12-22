@@ -1,16 +1,27 @@
 from project import app
 from flask import render_template, redirect, url_for
 from flask_login import current_user
-from project.models.dbOperations import getCourseConnections
+from project.models.dbOperations import getCourseConnections, getInstructorsCourses
 
 
 @app.route('/')
 @app.route('/home', methods= ['GET'])
 def home():
-    nodes, connections = getCourseConnections(current_user.user_id)
+    userType = ""
+    courses = []
+    nodes = []
+    connections = []
+    if not current_user.is_authenticated:
+        userType = 'guest'
+    elif current_user.isInstructor():
+        userType = 'instructor'
+        courses = getInstructorsCourses(current_user.user_id)
+    elif current_user.isStudent():
+        userType = 'student'
+        nodes, connections = getCourseConnections(current_user.user_id)
 
     keys, cons = ConnectionModifier(nodes, connections)
-    return render_template('rootHOME.html', keys=keys, cons=cons, title='Home', userType='guest')
+    return render_template('rootHOME.html', keys=keys, cons=cons, title='Home', courses=courses, userType=userType)
 
 
 def ConnectionModifier(nodes, connections):

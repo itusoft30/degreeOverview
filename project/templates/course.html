@@ -1,20 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    {% if edit == True %}
-    <div class="d-flex">
-      <a href="{{ url_for('courseEdit', course_id=course_id )}}" class="cs-std-link float-right text-decoration-none">Edit</a>
-    </div>
-    {% endif %}
-
-
   <div class="row justify-content-center mt-5">
     <div class="col-7 d-flex flex-column">
-  
+      {% if user_type == "instructor" %}
       <div class="d-flex justify-content-end">
-        <a href="" id="idDanger" class="btn float-right text-center mr-2" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; background-color: #2e2e2e;">Edit</a>
-        <a href="" id="idDanger" class="btn float-right text-center mr-2" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Delete Course</a>
+        <a href="{{ url_for('courseEdit', course_id=course_id )}}" id="idDanger" class="btn float-right text-center mr-2" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; background-color: #2e2e2e;">Edit</a>
+        <a href="{{ url_for('courseDelete', course_id=course_id) }}" id="idDanger" class="btn float-right text-center mr-2" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Delete Course</a>
       </div>
+      {% endif %}
         <ul class="list-group">
           
           <li class="list-group-item d-flex active">
@@ -178,8 +172,9 @@
             </form>
           </li>
         </ul>
-        <a href="#" id="idDanger" class="list-group-item float-right text-center" style="margin-left : 30em; margin-right: 1em;">Remove Grade</a>
-
+        {% if user_type == "student" %}
+        <a href="{{ url_for('deleteGrade', course_id=course_id )}}" id="idDanger" class="list-group-item float-right text-center" style="margin-left : 30em; margin-right: 1em;">Remove Grade</a>
+        {% endif %}
     </div>
   </div>
 {% endblock content%}

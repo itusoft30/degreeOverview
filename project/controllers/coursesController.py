@@ -21,20 +21,24 @@ def courses():
 
 @app.route("/course/<int:course_id>", methods = ['GET', 'POST'])
 def course(course_id):
-    editable = False
+    user_type = ""
     course = getCourseData(course_id)
     studentGrade = GradeSetup(course_id)
 
-    if current_user.is_authenticated and course['insturctorId'] == current_user.user_id:
-        editable = True
+    if current_user.is_authenticated:
+        if course['insturctorId'] == current_user.user_id:
+            user_type = "instructor"
+        elif current_user.isStudent():
+            user_type = "student"    
     form = StudentGradeForm()
-
     if form.validate_on_submit():
         if not current_user.is_authenticated:
             return redirect(url_for('Login'))
-
-        GradeFormManager(form, current_user.user_id, course_id)
-    return render_template('course.html',edit = editable,form=form, course=course, course_id=course_id, student_grade=studentGrade, title='Courses')
+        if current_user.isStudent():
+            GradeFormManager(form, current_user.user_id, course_id)
+        else:
+            flash("You need to be student to add a grade.")
+    return render_template('course.html', user_type=user_type, form=form, course=course, course_id=course_id, student_grade=studentGrade, title='Courses')
 
 @app.route('/addCourse', methods = ['GET', 'POST'])
 @login_required
@@ -65,7 +69,7 @@ def courseEdit(course_id):
             return redirect(url_for('course',course_id= course_id))
         else:
             flash('Course can not edited.')
-    return render_template('courseEdit.html', form=form, course=course, title='Courses')
+    return render_template('courseAdd.html', form=form, course=course, title='Courses')
 
 @app.route('/deleteCourse/<int:course_id>')
 @login_required
