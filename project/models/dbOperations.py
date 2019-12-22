@@ -258,7 +258,7 @@ def getInstructorData(instructor_id):
     for course in instructor.courses:
         courseData['course_id'] = course.course_id
         courseData['code'] = course.course_code
-        courseData['prerequisites'] = getPrerequisites(course.course_id)
+        courseData['prerequisites'] = getPrerequisitesAsString(course.course_id)
         courseData['outcomes'] = getOutcomes(course.course_id)
 
         final_courses.append(courseData.copy())
