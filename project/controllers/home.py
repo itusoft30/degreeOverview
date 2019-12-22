@@ -10,7 +10,7 @@ def home():
     nodes, connections = getCourseConnections(current_user.user_id)
 
     keys, cons = ConnectionModifier(nodes, connections)
-    return render_template('rootHOME.html', keys=keys, cons=cons, title='Home')
+    return render_template('rootHOME.html', keys=keys, cons=cons, title='Home', userType='guest')
 
 
 def ConnectionModifier(nodes, connections):
