@@ -64,23 +64,46 @@ class Test(unittest.TestCase):
                       follow_redirects=True)
         self.assertIn(b'The email is already taken.', response.data)
 
-    def test_Register_Same_Email(self):
-        response = self.app.post('/register',
-                      data=dict(name='test123', surname='test123',
-                                email='akyuzi15',password='test123',
-                                confirm_password='test123',department=1,
-                                title='pro'),
-                      follow_redirects=True)
-        self.assertIn(b'The email is already taken.', response.data)
-
     def test_Register_True(self):
         response = self.app.post('/register',
                       data=dict(name='test123', surname='test123',
-                                email='akyuzi15',password='test123',
+                                email='test127',password='test123',
                                 confirm_password='test123',department=1,
                                 title='pro'),
                       follow_redirects=True)
-        self.assertIn(b'The email is already taken.', response.data)
+
+        result = connection.execute("select email from reguser where email='%s'"%('test127@itu.edu.tr'))
+        result = result.fetchone()
+        id = connection.execute("select user_id from reguser where email='%s'" % ('test127@itu.edu.tr'))
+        id = id.fetchone()[0]
+        connection.execute("DELETE FROM instructor WHERE instructor_id=%d" % (id))
+        connection.execute("DELETE FROM reguser WHERE email='%s'" % ('test127@itu.edu.tr'))
+        self.assertEqual(result[0],'test127@itu.edu.tr')
+
+    def test_Add_Course(self):
+        self.app.post('/login', data=dict(email='akyuzi15', password='admin'), follow_redirects=True)
+        response = self.app.post('/courses',
+                                 data=dict(course=2, bb=True),
+                                 follow_redirects=True)
+
+        result = connection.execute("select user_id from reguser where email='%s'" % ('akyuzi15@itu.edu.tr'))
+        result = result.fetchone()
+        result = connection.execute("select grade from student_grade where student_id = 2")
+        result = result.fetchone()
+
+        self.assertEqual(result[0],'BB')
+
+    def test_Edit_Profile(self):
+        self.app.post('/login', data=dict(email='akyuzi15', password='admin'), follow_redirects=True)
+        response = self.app.post('/updateProfile',
+                                 data=dict(name='test123',surname='test123',
+                                           department=1,id_num=150150122,
+                                           submit="Update"),
+                                 follow_redirects=True)
+
+        
+
+
 
 if __name__ == '__main__':
     unittest.main()
