@@ -36,6 +36,7 @@ def course(course_id):
             return redirect(url_for('Login'))
         if current_user.isStudent():
             GradeFormManager(form, current_user.user_id, course_id)
+            return redirect(url_for('course', course_id=course_id))
         else:
             flash("You need to be student to add a grade.")
     return render_template('course.html', user_type=user_type, form=form, course=course, course_id=course_id, student_grade=studentGrade, title='Courses')
