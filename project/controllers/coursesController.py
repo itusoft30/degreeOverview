@@ -14,7 +14,7 @@ def course(course_id):
     editable = False
     course = getCourseData(course_id)
     studentGrade = GradeSetup(course_id)
-    if course['insturctorId'] == current_user.user_id:
+    if current_user.is_authenticated and course['insturctorId'] == current_user.user_id:
         editable = True
     form = StudentGradeForm()
     if form.validate_on_submit():
@@ -43,7 +43,7 @@ def course(course_id):
             addStudentGrade(current_user.user_id, course_id, 'FF')
         return redirect(url_for('course', course_id=course_id))
 
-    return render_template('course.html',edit = editable,form=form, course=course,course_id=course_id,student_grade=studentGrade, title='Courses')
+    return render_template('course.html',edit = editable,form=form, course=course, course_id=course_id, student_grade=studentGrade, title='Courses')
 
 @app.route('/addCourse', methods = ['GET', 'POST'])
 @login_required

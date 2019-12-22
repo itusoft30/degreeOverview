@@ -3,7 +3,7 @@
 
     {% if edit == True %}
     <div class="d-flex">
-      <a href="{{ url_for('courseEdit', course_id= course_id )}}" class="cs-std-link float-right text-decoration-none">Edit</a>
+      <a href="{{ url_for('courseEdit', course_id=course_id )}}" class="cs-std-link float-right text-decoration-none">Edit</a>
     </div>
     {% endif %}
 
@@ -28,11 +28,8 @@
             <div class="col font-weight-bold">Prerequisite/s</div>
             <div class="col">
               {% if course.prerequisites %}
-                {% for prerequisite in course.prerequisites %}
-                  <a href="{{ url_for('course', course_id=prerequisite.course_id) }}">
-                    {{ prerequisite.name }} 
-                  </a>
-                {% endfor %}
+                  {{ course.prerequisites }} 
+                </a>
               {% else %}
                 None
               {% endif %}
