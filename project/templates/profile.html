@@ -5,7 +5,7 @@
 
     <div class="d-flex">
       <h5 class="col p-0 font-weight-bold">User Information</h5>
-      <a href="updateProfile" class="cs-std-link float-right text-decoration-none">Edit</a>  
+      <a href="updateProfile" class="csStdLink float-right text-decoration-none">Edit</a>  
     </div>
 
     <table class="table">
@@ -41,8 +41,8 @@
       </tbody>
     </table>
     
-    <a href="logout" id="id-logout" class="btn float-right">Logout</a> 
-    <a href="{{ url_for('deleteAccount', user_id=user.user_id) }}" id="id-logout" class="btn float-right">Delete Account</a>
+    <a href="logout" id="idDanger" class="btn float-right">Logout</a> 
+    <a href="{{ url_for('deleteAccount', user_id=user.user_id) }}" id="idDanger" class="btn float-left">Delete Account</a>
     
 
   </div>
