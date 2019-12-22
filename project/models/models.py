@@ -81,8 +81,11 @@ class Course(db.Model):
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.instructor_id'))
     department_id = db.Column(db.Integer, db.ForeignKey('department.department_id'))
     
-    courseOutcomes = db.relationship('Course_Outcome', backref='course', lazy=True)
+    courseOutcomes = db.relationship('Course_Outcome', backref='course', cascade="all, delete-orphan", lazy=True)
     grades = db.relationship('Student_Grade', backref='course', cascade="all, delete-orphan", lazy=True)
+
+    requisites = db.relationship(
+        'Prerequisite', primaryjoin="or_(Course.course_id==Prerequisite.course_id, Course.course_id==Prerequisite.requisite_id)", cascade="all, delete-orphan", lazy='dynamic')
 
     def __repr__(self):
         return f"course('{self.crn}', '{self.name}', '{self.course_code}', '{self.instructor_id}')"
@@ -109,8 +112,6 @@ class Prerequisite(db.Model):
     prerequisite_id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
     requisite_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
-    course = db.relationship("Course", foreign_keys='Prerequisite.course_id')
-    requisite = db.relationship("Course", foreign_keys='Prerequisite.requisite_id')
 
     def __repr__(self):
         return f"prerequisite('{self.course_id}', '{self.requisite_id}')"
