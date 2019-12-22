@@ -34,45 +34,51 @@
         <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
       </div>
     {% else %}
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
-        <ul class="navbar-nav font-weight-bold">
-          {% if title == 'Home' %}
-            <li class="nav-item soft-active">
-          {% else %}
-            <li class="nav-item">
-          {% endif %}
-            <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
-          </li>
-
-          {% if title == 'Courses' %}
-            <li class="nav-item soft-active">
-          {% else %}
-            <li class="nav-item">
-          {% endif %}
-              <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
-          </li>
-
-          {% if title == 'Instructors' %}
-            <li class="nav-item soft-active">
-          {% else %}
-            <li class="nav-item">
-          {% endif %}
-              <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
-          </li>
-
-          {% if title == 'Profile' %}
-            <li class="nav-item soft-active">
-          {% else %}
-            <li class="nav-item">
-          {% endif %}
-              <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
-          </li>
-
-        </ul>
+      {% if title == 'Login' %}
+      <div class="navbar-collapse justify-content-center font-weight-bold">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
       </div>
+      {% else %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+          <ul class="navbar-nav font-weight-bold">
+            {% if title == 'Home' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+            </li>
+
+            {% if title == 'Courses' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
+            </li>
+
+            {% if title == 'Instructors' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
+            </li>
+
+            {% if title == 'Profile' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+            </li>
+
+          </ul>
+        </div>
+      {% endif %}
     {% endif %}
   </nav>
 
