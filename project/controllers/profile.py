@@ -3,14 +3,19 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from project.models.models import RegUser, Department
 from project.models.dbOperations import *
-from project.controllers.forms import InstructorProfileUpdateForm, StudentProfileUpdateForm, ChangePasswordForm
+from project.controllers.forms import InstructorProfileUpdateForm, StudentProfileUpdateForm, ChangePasswordForm,DeleteUserForm
 
 
-@app.route('/profile', methods = ['GET'])
+@app.route('/profile', methods = ['GET','POST'])
 @login_required
 def profile():
     userData = getUserData(current_user.user_id)
-    return render_template('profile.html', user=userData, title='Profile')
+    form = DeleteUserForm()
+    if form.validate_on_submit():
+        if(deleteUserDB(current_user.user_id)):
+            flash("account deleted.")
+            return redirect(url_for('logout'))
+    return render_template('profile.html', user=userData, title='Profile',form=form)
 
 
 @app.route('/updateProfile', methods = ['GET', 'POST'])

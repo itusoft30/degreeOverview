@@ -101,7 +101,27 @@ class Test(unittest.TestCase):
                                            submit="Update"),
                                  follow_redirects=True)
 
-        
+        result = connection.execute("select name from reguser where email='%s'" % ('akyuzi15@itu.edu.tr'))
+        result = result.fetchone()
+        self.assertEqual(result[0],'test123')
+
+    def test_Delete_Profile(self):
+        # Adding test user
+        self.app.post('/register',
+                      data=dict(name='test173', surname='test173',
+                      email='test173',password='test173',
+                      confirm_password='test173',department=1,
+                      title='pro'))
+        self.app.post('/login', data=dict(email='test173', password='test173'), follow_redirects=True)
+        self.app.get('/profile', follow_redirects=True)
+        response = self.app.post('/profile',
+                                 data=dict(delete=True),
+                                 follow_redirects=True)
+
+        self.assertIn(b'account deleted.', response.data)
+
+    def test_Edit_Course(self):
+        return True
 
 
 
