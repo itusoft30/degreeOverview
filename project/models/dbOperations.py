@@ -51,7 +51,7 @@ def registerCourse(form, user_id):
 def updateCourseData(course_id, form):
     course = Course.query.filter_by(crn=form.crn.data).first()
     updated_course = Course.query.get_or_404(course_id)
-    if course:
+    if course and updated_course.crn != form.crn.data:
         return False
     updated_course.crn = form.crn.data
     updated_course.name = form.name.data
