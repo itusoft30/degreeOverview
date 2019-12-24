@@ -18,6 +18,7 @@ body {
     position: relative;
     margin:0 auto;
     min-height: 93.4%;
+
 }
   
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -39,6 +40,16 @@ body {
     margin-left: 25em;
     margin-right: 25em;
     padding-bottom: 8.5em;  
+}
+
+#idHomeGuest h1 {
+    font-family: myFont;
+    font-size: 5em; 
+    box-shadow: 0px 5px 10px rgb(41, 7, 95); 
+    text-shadow: 0px 5px 30px rgb(0, 0, 0);
+    color: whitesmoke;
+    border-radius: 0.2em;
+    background-image: url("a.gif");
 }
 
 #Login{
