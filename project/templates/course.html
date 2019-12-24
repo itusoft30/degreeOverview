@@ -27,8 +27,9 @@
             <div class="col font-weight-bold">Prerequisite/s</div>
             <div class="col">
               {% if course.prerequisites %}
-                  {{ course.prerequisites }} 
-                </a>
+                {% for requisite in course.prerequisites %}
+                <a href="{{ url_for('course', course_id=requisite.course_id) }}">{{ requisite.name }}</a>
+                {% endfor %}
               {% else %}
                 None
               {% endif %}
