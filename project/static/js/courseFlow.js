@@ -19,7 +19,7 @@ function init() {
         });
 
     var graygrad = $(go.Brush, "Linear",
-      { 0: "#1089ff"});
+      { 0: "#fff"});
 
 
     // MAIN NODE
@@ -31,9 +31,9 @@ function init() {
       $(go.Panel, "Auto",
         { name: "BODY" },
         $(go.Shape, "RoundedRectangle",
-          { fill: graygrad, strokeWidth: 0, minSize: new go.Size(120, 60)}),
+          { fill: "white", strokeWidth: 0, minSize: new go.Size(120, 60)}),
         $(go.TextBlock,
-          {stroke: "white", font: "20px myFont", editable: false,
+          {stroke: "black", font: "20px myFont", editable: false,
             margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Center,
           },
           new go.Binding("text", "text"))
@@ -59,7 +59,7 @@ function init() {
           $(go.Shape, "Rectangle",
             { fill: graygrad, strokeWidth: 0, minSize: new go.Size(120, 60)}),
           $(go.TextBlock,
-            {stroke: "white", font: "20px myFont", editable: false,
+            {stroke: "black", font: "20px myFont", editable: false,
               margin: new go.Margin(3, 3 + 11, 3, 3 + 4), alignment: go.Spot.Center,
             },
             new go.Binding("text", "text"))
@@ -69,13 +69,13 @@ function init() {
         $(go.Panel, "Auto",
         { alignment: go.Spot.Left, portId: "to", toLinkable: false },
         $(go.Shape, "Rectangle",
-          { width: 8, height: 60, fill: "#23374d", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
+          { width: 8, height: 60, fill: "#fff", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
         ),
         // output port
         $(go.Panel, "Auto",
           { alignment: go.Spot.Right, portId: "from" },
           $(go.Shape, "Rectangle",
-          { width: 8, height: 60, fill: "#23374d", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
+          { width: 8, height: 60, fill: "#fff", strokeWidth:0, margin: new go.Margin(0, 0,0,0) })
         )
       );
 
@@ -115,10 +115,10 @@ function init() {
         selectable: false
       },
       $(go.Shape,
-        { strokeWidth: 3 },
+        { strokeWidth: 5 },
         new go.Binding("stroke", "toNode", function(n) {
           if (n.data.brush) return n.data.brush;
-          return "black";
+          return "white";
         }).ofObject())
     ); // the link shape
       /*
