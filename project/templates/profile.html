@@ -41,9 +41,11 @@
       </tbody>
     </table>
     
-    <a href="{{ url_for('logout') }}" id="idDanger" class="btn float-right">Logout</a> 
-    <a href="{{ url_for('deleteAccount', user_id=user.user_id) }}" id="idDanger" class="btn float-left">Delete Account</a>
-    
+    <a href="{{ url_for('logout') }}" id="idDanger" class="btn float-right">Logout</a>
+    <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.delete(class="btn float-left")}}
+    </form>
 
   </div>
 </div>

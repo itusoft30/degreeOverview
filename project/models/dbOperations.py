@@ -200,7 +200,7 @@ def getCourseData(course_id):
     courseData['insturctorId'] = course.instructor_id
     courseData['crn'] = course.crn
     courseData['credit'] = course.credit
-    courseData['prerequisites'] = getPrerequisites(course_id)
+    courseData['prerequisites'] = getPrerequisitesAsString(course_id)
     courseData['outcomes'] = getOutcomes(course_id)
 
     return courseData

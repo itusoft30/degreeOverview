@@ -4,7 +4,13 @@
 
     <div class="col-sm-4">
 
-      <input class="form-control mb-3" id="myInput" type="text" placeholder="Search For Course..">
+      <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search For Course">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Bring</button>
+          </div>
+      </div>
+
 
       <form>
         <select name="soft-department" class="custom-select mb-2">
@@ -32,6 +38,13 @@
         <div id="accordion">
           {% if courses %}
             {% for course in courses %}
+
+
+                <div class="card">
+                  <div class="card-header d-flex">
+
+                    <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
+
                 <li class="card mb-1" >
 
                   <div class="card-header d-flex bg-light list-group-item-action">
@@ -75,7 +88,6 @@
                       </div>
                     </form>
                   </div>
-
                 </li>
             {% endfor %}
           {% endif %}

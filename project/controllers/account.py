@@ -1,12 +1,13 @@
 from project import app
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, current_user, logout_user, login_required
-from project.controllers.forms import LoginForm, RegistrationForm
+from project.controllers.forms import LoginForm, RegistrationForm,DeleteUserForm
 from project.config.crypto import Crypto
 from project.models.models import RegUser, Department
 from project.models.dbOperations import *
 
 #route login
+@app.route('/login', methods = ['GET', 'POST'])
 @app.route('/login', methods = ['GET', 'POST'])
 def Login():
     if current_user.is_authenticated:
@@ -43,14 +44,3 @@ def Register():
             flash('The email is already taken.')
 
     return render_template('register.html', form=form, title='Register')
-
-
-@app.route("/deleteAccount/<int:user_id>")
-def deleteAccount(user_id):
-    if current_user.isAdmin():
-        if deleteUserDB(user_id):
-            flash("User has been deleted.")
-    else:
-        if deleteUserDB(current_user.user_id):
-            flash("Your account has been deleted.")
-    return redirect(url_for('home'))

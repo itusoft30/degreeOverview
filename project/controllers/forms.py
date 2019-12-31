@@ -100,6 +100,9 @@ class StudentGradeForm(FlaskForm):
     vf = SubmitField('VF')
     ff = SubmitField('FF')
 
+class DeleteUserForm(FlaskForm):
+    delete = SubmitField('DELETE')
+
 class InstructorUpdateProfileForm(FlaskForm):
     name = StringField('Name:', validators=[DataRequired(), Length(min=2, max=30)])
     surname = StringField('Surname:', validators=[DataRequired(), Length(min=2, max=30)])
